@@ -7,4 +7,7 @@ export default {
   fetchProducts() {
     return instance.get('products/');
   },
+  addProduct(payload) {
+    return instance.post('products/', payload);
+  },
 };
