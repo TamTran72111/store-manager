@@ -1,4 +1,7 @@
-from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import (
+    CreateAPIView,
+    RetrieveUpdateDestroyAPIView,
+)
 from rest_framework.viewsets import ModelViewSet
 
 from .models import Product, Unit
@@ -11,7 +14,10 @@ from .serializers import (
 
 class ProductViewSet(ModelViewSet):
     serializer_class = ProductSerializer
-    queryset = Product.objects.all()
+
+    def get_queryset(self):
+        name = self.request.query_params.get('name', '')
+        return Product.search(name)
 
 
 class UnitCreateAPIView(CreateAPIView):
