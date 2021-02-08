@@ -8,6 +8,9 @@ class Product(models.Model, SearchNameMixin):
     name = models.CharField(max_length=200)
     search_name = models.CharField(max_length=200, blank=True)
     description = models.TextField(blank=True)
+    # only set active to False instead of delete the instance.
+    # This avoids affecting related old orders
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -23,6 +26,9 @@ class Unit(models.Model):
                                 on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=15, decimal_places=2)
+    # only set active to False instead of delete the instance.
+    # This avoids affecting related old orders
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return f'{self.product.name} | {self.name}'
