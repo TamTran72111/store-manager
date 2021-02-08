@@ -52,6 +52,8 @@ class OrderDetail(models.Model):
         blank=True, default=0, max_digits=15, decimal_places=2)
     ready = models.BooleanField(default=False)
     quantity = models.DecimalField(max_digits=8, decimal_places=2)
+    discount = models.DecimalField(
+        blank=True, default=0, max_digits=15, decimal_places=2)
 
     def __str__(self):
         return f'{self.product.name} ::: {self.order}'
