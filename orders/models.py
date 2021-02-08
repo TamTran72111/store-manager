@@ -35,6 +35,9 @@ class Order(models.Model):
     def total(self):
         return sum([detail.cost for detail in self.details.all()])
 
+    def is_shipped(self):
+        return self.status == 's'
+
 
 class OrderDetail(models.Model):
     order = models.ForeignKey(
@@ -47,7 +50,7 @@ class OrderDetail(models.Model):
     # Need to have a price to avoid the effect of changing price in unit
     price = models.DecimalField(
         blank=True, default=0, max_digits=15, decimal_places=2)
-    ready = models.BooleanField()
+    ready = models.BooleanField(default=False)
     quantity = models.DecimalField(max_digits=8, decimal_places=2)
 
     def __str__(self):
@@ -61,7 +64,13 @@ class OrderDetail(models.Model):
     def cost(self):
         return self.price * self.quantity
 
+    def update_price(self):
+        self.price = self.unit.price
+
+    def is_shipped(self):
+        return self.order.is_shipped()
+
 
 @receiver(pre_save, sender=OrderDetail, dispatch_uid='OrderDetail_pre_save')
 def get_price(sender, instance, *args, **kwargs):
-    instance.price = instance.unit.price
+    instance.update_price()
