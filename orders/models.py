@@ -1,6 +1,9 @@
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
+
+import datetime
+
 from customers.models import Customer
 from products.models import Unit
 
@@ -26,6 +29,7 @@ class Order(models.Model):
         blank=True,
         default='o'
     )
+    debt = models.DecimalField(default=0, max_digits=15, decimal_places=2)
 
     def __str__(self):
         return f'{self.customer.name} - ' +\
@@ -37,6 +41,14 @@ class Order(models.Model):
 
     def is_shipped(self):
         return self.status == 's'
+
+    @classmethod
+    def get_query_orders(cls, query):
+        time_query = query.get('time')
+        if time_query == 'today':
+            today = datetime.datetime.today() - datetime.timedelta(hours=4)
+            return Order.objects.filter(created_at__gte=today)
+        return Order.objects.order_by('-created_at')
 
 
 class OrderDetail(models.Model):

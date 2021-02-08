@@ -29,7 +29,12 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'customer', 'status', 'created_at', 'total', 'details')
+        fields = ('id', 'customer', 'status',
+                  'created_at', 'total', 'debt', 'details')
 
     def get_total(self, instance):
         return instance.total
+
+    def create(self, validated_data):
+        validated_data['debt'] = validated_data['customer'].debt
+        return super().create(validated_data)
