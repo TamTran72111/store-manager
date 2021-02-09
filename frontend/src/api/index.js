@@ -4,8 +4,8 @@ const instance = axios.create({
 });
 
 export default {
-  fetchProducts() {
-    return instance.get('products/');
+  fetchProducts(searchName) {
+    return instance.get(`products/?name=${searchName}`);
   },
   addProduct(payload) {
     return instance.post('products/', payload);

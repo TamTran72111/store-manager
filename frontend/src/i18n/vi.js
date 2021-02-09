@@ -13,6 +13,8 @@ export default {
     descriptionPlaceholder: 'Nhập thông tin về mặt hàng',
     addTitle: 'Thêm Mặt Hàng',
     detailTitle: 'Thông tin hàng',
+    search: 'Tìm kiếm',
+    searchPlaceholder: 'Nhập tên để tìm kiếm hàng',
   },
   units: {
     title: 'Đơn vị tính',

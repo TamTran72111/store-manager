@@ -4,6 +4,7 @@
     <div class="control" :class="{ 'has-icons-left': !!icon }">
       <input
         class="input"
+        :class="{ 'has-text-right': type === 'number' }"
         :type="type"
         :placeholder="placeholder"
         :value="modelValue"

@@ -13,6 +13,8 @@ export default {
     descriptionPlaceholder: 'Enter product description',
     addTitle: 'Add Product',
     detailTitle: 'Product',
+    search: 'Search',
+    searchPlaceholder: 'Enter name to search for products',
   },
   units: {
     title: 'Units',
