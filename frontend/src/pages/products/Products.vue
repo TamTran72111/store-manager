@@ -4,7 +4,7 @@
       <router-link
         :to="{ name: 'product-add' }"
         class="button is-primary is-outlined"
-        >Add Product</router-link
+        >{{ t("products.addButton") }}</router-link
       >
     </div>
     <ProductList />
@@ -16,6 +16,7 @@ import ProductList from "../../components/products/ProductList.vue";
 
 export default {
   components: { ProductList },
+  inject: ["t"],
 };
 </script>
 

@@ -1,11 +1,11 @@
 <template>
-  <h4 class="title is-4 has-text-centered mt-2">Product List</h4>
+  <h4 class="title is-4 has-text-centered mt-2">{{ t("products.list") }}</h4>
   <table class="table is-bordered mb-5">
     <thead>
-      <tr>
-        <th>Product</th>
-        <th>Unit</th>
-        <th>Price</th>
+      <tr class="has-text-centered">
+        <th>{{ t("products.table.product") }}</th>
+        <th>{{ t("products.table.unit") }}</th>
+        <th>{{ t("products.table.price") }}</th>
       </tr>
     </thead>
     <tbody>
@@ -26,6 +26,7 @@ import ProductRow from "./ProductRow.vue";
 
 export default {
   components: { ProductRow },
+  inject: ["t"],
   setup() {
     const store = useStore();
 

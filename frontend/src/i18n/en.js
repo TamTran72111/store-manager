@@ -1,5 +1,31 @@
 export default {
-  message: {
-    hello: 'hello world',
+  products: {
+    list: 'Product List',
+    table: {
+      product: 'Product',
+      unit: 'Unit',
+      price: 'Price',
+    },
+    addButton: 'Add Product',
+    name: 'Name',
+    namePlaceholder: 'Enter product name',
+    description: 'Description',
+    descriptionPlaceholder: 'Enter product description',
+    addTitle: 'Add Product',
+    detailTitle: 'Product',
   },
+  units: {
+    title: 'Units',
+    name: 'Name',
+    namePlaceholder: 'Enter name',
+    price: 'Price',
+    pricePlaceholder: 'Enter price',
+    action: 'Action',
+  },
+  add: 'Add',
+  save: 'Save',
+  cancel: 'Cancel',
+  recover: 'Recover',
+  edit: 'Edit',
+  delete: 'Delete',
 };

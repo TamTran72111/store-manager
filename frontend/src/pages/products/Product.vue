@@ -1,15 +1,15 @@
 <template>
-  <h3 class="title is-3 has-text-centered">Product</h3>
+  <h3 class="title is-3 has-text-centered">{{ t("products.detailTitle") }}</h3>
   <table class="table is-bordered">
     <tbody>
       <tr>
-        <th>Name</th>
+        <th>{{ t("products.name") }}</th>
         <td class="has-text-centered">
           <strong>{{ product?.name }}</strong>
         </td>
       </tr>
       <tr>
-        <th>Description</th>
+        <th>{{ t("products.description") }}</th>
         <td>{{ product?.description }}</td>
       </tr>
     </tbody>
@@ -26,6 +26,7 @@ import Units from "../../components/units/Units.vue";
 
 export default {
   components: { Units },
+  inject: ["t"],
   setup() {
     const route = useRoute();
     const store = useStore();

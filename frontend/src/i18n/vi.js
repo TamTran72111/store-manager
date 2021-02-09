@@ -1,5 +1,31 @@
 export default {
-  message: {
-    hello: 'こんにちは、世界',
+  products: {
+    list: 'Danh sách các mặt hàng',
+    table: {
+      product: 'Tên hàng',
+      unit: 'Đơn vị tính',
+      price: 'Giá tiền',
+    },
+    addButton: 'Thêm mặt hàng',
+    name: 'Tên hàng',
+    namePlaceholder: 'Nhập tên hàng',
+    description: 'Thông tin mặt hàng',
+    descriptionPlaceholder: 'Nhập thông tin về mặt hàng',
+    addTitle: 'Thêm Mặt Hàng',
+    detailTitle: 'Thông tin hàng',
   },
+  units: {
+    title: 'Đơn vị tính',
+    name: 'Đơn vị',
+    namePlaceholder: 'Nhập đơn vị',
+    price: 'Giá tiền',
+    pricePlaceholder: 'Nhập giá tiền',
+    action: '',
+  },
+  add: 'Thêm',
+  save: 'Lưu',
+  cancel: 'Hủy',
+  recover: 'Phục hồi',
+  edit: 'Chỉnh sửa',
+  delete: 'Xóa',
 };

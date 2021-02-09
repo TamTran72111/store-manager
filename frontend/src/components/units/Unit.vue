@@ -5,7 +5,7 @@
         v-if="isEditing"
         type="text"
         v-model="name"
-        placeholder="Enter name"
+        :placeholder="t('units.namePlaceholder')"
       />
       <span v-else :class="{ deleted: !unit.active }">{{ unit.name }}</span>
     </td>
@@ -14,32 +14,41 @@
         v-if="isEditing"
         type="number"
         v-model="price"
-        placeholder="Enter price"
+        :placeholder="t('units.pricePlaceholder')"
       />
       <span v-else :class="{ deleted: !unit.active }">{{ unit.price }}</span>
     </td>
     <td v-if="isEditing" class="v-align">
-      <span class="icon has-text-info" @click="save" title="Save"
+      <span class="icon has-text-info" @click="save" :title="t('save')"
         ><i class="fas fa-save"></i
       ></span>
     </td>
     <td v-else-if="unit.active">
-      <span class="icon has-text-info" @click="isEditing = true" title="Edit"
+      <span
+        class="icon has-text-info"
+        @click="isEditing = true"
+        :title="t('edit')"
         ><i class="fas fa-pen"></i
       ></span>
     </td>
     <td v-else colspan="2" class="has-text-centered">
-      <span @click="activate" class="icon has-text-primary" title="Recover"
+      <span
+        @click="activate"
+        class="icon has-text-primary"
+        :title="t('recover')"
         ><i class="fas fa-history"></i
       ></span>
     </td>
     <td v-if="isEditing" class="v-align">
-      <span @click="isEditing = false" class="icon" title="Cancel"
+      <span @click="isEditing = false" class="icon" :title="t('cancel')"
         ><i class="fas fa-history"></i
       ></span>
     </td>
     <td v-else-if="unit.active">
-      <span @click="deactivate" class="icon has-text-danger" title="Delete"
+      <span
+        @click="deactivate"
+        class="icon has-text-danger"
+        :title="t('delete')"
         ><i class="fas fa-trash-alt"></i
       ></span>
     </td>
@@ -55,6 +64,7 @@ import RequiredInput from "../ui/RequiredInput.vue";
 export default {
   components: { RequiredInput },
   props: ["unit"],
+  inject: ["t"],
   setup(props) {
     const isEditing = ref(false);
     const name = ref(props.unit.name);

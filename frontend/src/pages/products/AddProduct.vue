@@ -1,18 +1,18 @@
 <template>
-  <h4 class="title is-4 has-text-centered">Add Product</h4>
+  <h4 class="title is-4 has-text-centered">{{ t("products.addTitle") }}</h4>
   <form @submit.prevent="onSubmit">
     <RequiredInput
-      label="Name"
-      placeholder="Enter product name"
+      :label="t('products.name')"
+      :placeholder="t('products.namePlaceholder')"
       v-model="name"
       type="text"
     />
     <div class="field">
-      <label class="label">Description</label>
+      <label class="label">{{ t("products.description") }}</label>
       <div class="control">
         <textarea
           class="textarea"
-          placeholder="Enter product description"
+          :placeholder="t('products.descriptionPlaceholder')"
           v-model="description"
         ></textarea>
       </div>
@@ -26,7 +26,7 @@
           style="width: 100px"
           :disabled="!name"
         >
-          Add
+          {{ t("add") }}
         </button>
       </div>
       <div class="control">
@@ -35,7 +35,7 @@
           class="button is-link is-light"
           style="width: 100px"
         >
-          Cancel
+          {{ t("cancel") }}
         </router-link>
       </div>
     </div>
@@ -45,17 +45,16 @@
 <script>
 import { ref } from "vue";
 import { useStore } from "vuex";
-import { useI18n } from "vue-i18n";
 
 import RequiredInput from "../../components/ui/RequiredInput.vue";
 
 export default {
   components: { RequiredInput },
+  inject: ["t"],
   setup() {
     const name = ref("");
     const description = ref("");
     const store = useStore();
-    const { t } = useI18n();
 
     const onSubmit = async () => {
       await store.dispatch("products/addProduct", {
@@ -64,7 +63,7 @@ export default {
       });
     };
 
-    return { name, description, onSubmit, t };
+    return { name, description, onSubmit };
   },
 };
 </script>
