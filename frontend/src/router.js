@@ -12,7 +12,7 @@ const routes = [
     name: 'product-add',
     component: AddProduct,
   },
-  { path: '/products/:id', name: 'droduct-detail', component: Product },
+  { path: '/products/:id', name: 'product-detail', component: Product },
 ];
 
 const router = createRouter({

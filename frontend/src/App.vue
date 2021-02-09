@@ -27,4 +27,9 @@ th {
   top: 0;
   background: yellow;
 }
+
+.deleted {
+  text-decoration: line-through !important;
+  color: grey !important;
+}
 </style>

@@ -5,13 +5,11 @@
       <tr class="has-text-centered">
         <th>Name</th>
         <th>Price</th>
+        <th colspan="2">Action</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="unit in units" :key="unit.id">
-        <td>{{ unit.name }}</td>
-        <td class="has-text-right">{{ unit.price }}</td>
-      </tr>
+      <Unit v-for="unit in units" :key="unit.id" :unit="unit" />
       <tr>
         <td>
           <RequiredInput
@@ -27,18 +25,18 @@
             v-model="price"
           />
         </td>
+        <td colspan="2" class="has-text-centered">
+          <button
+            :disabled="!name || !price"
+            @click="click"
+            class="button is-primary"
+          >
+            Add
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
-  <div class="has-text-centered">
-    <button
-      :disabled="!name || !price"
-      @click="click"
-      class="button is-primary"
-    >
-      Thêm đơn vị đo
-    </button>
-  </div>
 </template>
 
 <script>
@@ -46,9 +44,10 @@ import { ref } from "vue";
 import { useStore } from "vuex";
 
 import RequiredInput from "../ui/RequiredInput.vue";
+import Unit from "./Unit.vue";
 
 export default {
-  components: { RequiredInput },
+  components: { RequiredInput, Unit },
   props: ["productId", "units"],
   setup(props) {
     const name = ref("");
@@ -79,6 +78,9 @@ table.table {
 }
 
 table.table th {
-  width: 50%;
+  width: calc(50% - 50px);
+}
+table.table th:last-child {
+  width: 100px;
 }
 </style>

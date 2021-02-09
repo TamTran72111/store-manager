@@ -18,4 +18,16 @@ export default {
     const response = await api.addUnit(payload);
     commit('addUnit', response.data);
   },
+  async activateUnit({ commit }, unitId) {
+    await api.activateUnit(unitId);
+    commit('activateUnit', unitId);
+  },
+  async deactivateUnit({ commit }, unitId) {
+    await api.deactivateUnit(unitId);
+    commit('deactivateUnit', unitId);
+  },
+  async editUnit({ commit }, { unitId, payload }) {
+    await api.editUnit(unitId, payload);
+    commit('editUnit', { unitId, payload });
+  },
 };

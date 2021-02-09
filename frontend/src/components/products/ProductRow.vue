@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td :rowspan="rowSpan" class="product-name">
-      {{ product.name }}
+      <router-link :to="toLink">{{ product.name }}</router-link>
     </td>
     <td>{{ firstUnit?.name || "" }}</td>
     <td class="has-text-right">{{ firstUnit?.price || "" }}</td>
@@ -11,7 +11,7 @@
     <td class="has-text-right">{{ unit.price }}</td>
   </tr>
 </template>
-
+0
 <script>
 import { computed } from "vue";
 export default {
@@ -27,10 +27,18 @@ export default {
       return Math.max(props.product.units.length, 1);
     });
 
+    const toLink = computed(() => {
+      return {
+        name: "product-detail",
+        params: { id: props.product.id },
+      };
+    });
+
     return {
       firstUnit,
       otherUnits,
       rowSpan,
+      toLink,
     };
   },
 };

@@ -8,4 +8,29 @@ export default {
   addUnit(state, unit) {
     state.product.units.push(unit);
   },
+  activateUnit(state, unitId) {
+    state.product.units.forEach((unit) => {
+      if (unitId === unit.id) {
+        unit.active = true;
+      }
+    });
+  },
+  deactivateUnit(state, unitId) {
+    state.product.units.forEach((unit) => {
+      if (unitId === unit.id) {
+        unit.active = false;
+      }
+    });
+  },
+  editUnit(state, { unitId, payload }) {
+    state.product.units = state.product.units.map((unit) => {
+      if (unitId === unit.id) {
+        return {
+          ...unit,
+          ...payload,
+        };
+      }
+      return unit;
+    });
+  },
 };

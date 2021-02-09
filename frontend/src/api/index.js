@@ -22,4 +22,13 @@ export default {
   addUnit(payload) {
     return instance.post('units/', payload);
   },
+  activateUnit(id) {
+    return instance.patch(`units/${id}/`, { active: true });
+  },
+  deactivateUnit(id) {
+    return instance.patch(`units/${id}/`, { active: false });
+  },
+  editUnit(id, unit) {
+    return instance.patch(`units/${id}/`, unit);
+  },
 };
