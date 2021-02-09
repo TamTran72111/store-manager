@@ -6,4 +6,7 @@ from .serializers import CustomerSerialzier
 
 class CustomerViewSet(ModelViewSet):
     serializer_class = CustomerSerialzier
-    queryset = Customer.objects.all()
+
+    def get_queryset(self):
+        name = self.request.query_params.get('name', '')
+        return Customer.search(name)
