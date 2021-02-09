@@ -1,4 +1,8 @@
 export default {
+  navbar: {
+    products: 'Products',
+    customers: 'Customers',
+  },
   products: {
     list: 'Product List',
     table: {
@@ -23,6 +27,18 @@ export default {
     price: 'Price',
     pricePlaceholder: 'Enter price',
     action: 'Action',
+  },
+  customers: {
+    search: 'Search',
+    searchPlaceholder: 'Enter name to search for customers',
+    list: 'Customer Lists',
+    addButton: 'Add Customer',
+    table: {
+      customer: 'Customer',
+      phone: 'Phone',
+      address: 'Address',
+      debt: 'Debt',
+    },
   },
   add: 'Add',
   save: 'Save',

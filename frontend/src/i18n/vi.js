@@ -1,4 +1,8 @@
 export default {
+  navbar: {
+    products: 'Hàng Hóa',
+    customers: 'Khách Hàng',
+  },
   products: {
     list: 'Danh sách các mặt hàng',
     table: {
@@ -23,6 +27,18 @@ export default {
     price: 'Giá tiền',
     pricePlaceholder: 'Nhập giá tiền',
     action: '',
+  },
+  customers: {
+    search: 'Tìm kiếm',
+    searchPlaceholder: 'Nhập tên để tìm kiếm khách hàng',
+    list: 'Danh sách khách hàng',
+    addButton: 'Thêm Khách Hàng',
+    table: {
+      customer: 'Tên Khách Hàng',
+      phone: 'S.Đ.T.',
+      address: 'Địa Chỉ',
+      debt: 'Nợ Cũ',
+    },
   },
   add: 'Thêm',
   save: 'Lưu',

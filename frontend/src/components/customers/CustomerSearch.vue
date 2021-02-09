@@ -1,8 +1,8 @@
 <template>
   <ListSearch
-    label="products.search"
-    placeholder="products.searchPlaceholder"
-    actionName="products/fetchProducts"
+    label="customers.search"
+    placeholder="customers.searchPlaceholder"
+    actionName="customers/fetchCustomers"
   />
 </template>
 

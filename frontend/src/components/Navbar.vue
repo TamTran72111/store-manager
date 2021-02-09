@@ -22,7 +22,12 @@
       :class="{ 'is-active': show }"
     >
       <div class="navbar-start">
-        <router-link to="/" class="navbar-item"> Home </router-link>
+        <router-link :to="{ name: 'products' }" class="navbar-item">{{
+          t("navbar.products")
+        }}</router-link>
+        <router-link :to="{ name: 'customers' }" class="navbar-item">{{
+          t("navbar.customers")
+        }}</router-link>
       </div>
     </div>
   </nav>
@@ -32,6 +37,7 @@
 import { ref } from "vue";
 
 export default {
+  inject: ["t"],
   setup() {
     const show = ref(false);
     const toggleShow = () => {
