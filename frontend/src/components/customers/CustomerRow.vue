@@ -1,7 +1,8 @@
 <template>
   <tr>
     <td>
-      <router-link :to="'/'"
+      <router-link
+        :to="{ name: 'customer-detail', params: { id: customer.id } }"
         ><span>{{ customer.name }}</span></router-link
       >
     </td>
