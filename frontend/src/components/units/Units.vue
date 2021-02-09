@@ -49,6 +49,7 @@ export default {
     const name = ref("");
     const price = ref(0);
     const store = useStore();
+    const t = useI18n();
 
     const click = async () => {
       await store.dispatch("products/addUnit", {

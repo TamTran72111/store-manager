@@ -45,6 +45,8 @@
 <script>
 import { ref } from "vue";
 import { useStore } from "vuex";
+import { useI18n } from "vue-i18n";
+
 import RequiredInput from "../../components/ui/RequiredInput.vue";
 
 export default {
@@ -53,6 +55,7 @@ export default {
     const name = ref("");
     const description = ref("");
     const store = useStore();
+    const { t } = useI18n();
 
     const onSubmit = async () => {
       await store.dispatch("products/addProduct", {
@@ -61,7 +64,7 @@ export default {
       });
     };
 
-    return { name, description, onSubmit };
+    return { name, description, onSubmit, t };
   },
 };
 </script>

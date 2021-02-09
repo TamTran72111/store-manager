@@ -1,6 +1,6 @@
 from rest_framework.generics import (
     CreateAPIView,
-    RetrieveUpdateDestroyAPIView,
+    RetrieveUpdateAPIView,
 )
 from rest_framework.viewsets import ModelViewSet
 
@@ -25,6 +25,6 @@ class UnitCreateAPIView(CreateAPIView):
     queryset = Unit.objects.all()
 
 
-class UnitAPIView(RetrieveUpdateDestroyAPIView):
+class UnitAPIView(RetrieveUpdateAPIView):
     serializer_class = UnitSerializer
     queryset = Unit.objects.all()
