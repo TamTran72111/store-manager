@@ -1,10 +1,13 @@
 <template>
   <div class="field">
     <label v-if="label" class="label">{{ label }}</label>
-    <div class="control has-icons-right" :class="{ 'has-icons-left': !!icon }">
+    <div
+      class="control"
+      :class="{ 'has-icons-left': !!icon, 'has-icons-right': invalid }"
+    >
       <input
         class="input"
-        :class="{ 'is-danger': invalid }"
+        :class="{ 'is-danger': invalid, 'has-text-right': type === 'number' }"
         :type="type"
         :placeholder="placeholder"
         :value="modelValue"

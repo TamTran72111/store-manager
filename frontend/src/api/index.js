@@ -10,4 +10,16 @@ export default {
   addProduct(payload) {
     return instance.post('products/', payload);
   },
+  fetchProduct(id) {
+    return instance.get(`products/${id}/`);
+  },
+  editProduct(id, payload) {
+    return instance.patch(`products/${id}`, payload);
+  },
+  deleteProduct(id) {
+    return instance.delete(`products/${id}/`);
+  },
+  addUnit(payload) {
+    return instance.post('units/', payload);
+  },
 };
