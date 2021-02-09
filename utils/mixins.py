@@ -18,4 +18,6 @@ class SearchNameMixin:
     @classmethod
     def search(cls, name):
         search_name = _generate_search_name(name)
-        return cls.objects.filter(search_name__contains=search_name)
+        return cls.objects\
+            .filter(search_name__contains=search_name)\
+            .order_by('search_name')
