@@ -5,6 +5,15 @@ export default {
   fetchProduct(state, product) {
     state.product = product;
   },
+  activateProduct(state) {
+    state.product.active = true;
+  },
+  deactivateProduct(state) {
+    state.product.active = false;
+  },
+  editProduct(state, { name, description }) {
+    state.product = { ...state.product, name, description };
+  },
   addUnit(state, unit) {
     state.product.units.push(unit);
   },

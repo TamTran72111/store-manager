@@ -5,4 +5,7 @@ export default {
   product(state) {
     return state.product;
   },
+  productId(state) {
+    return state.product?.id;
+  },
 };

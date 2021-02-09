@@ -13,8 +13,14 @@ export default {
   fetchProduct(id) {
     return instance.get(`products/${id}/`);
   },
+  activateProduct(id) {
+    return instance.patch(`products/${id}/`, { active: true });
+  },
+  deactivateProduct(id) {
+    return instance.patch(`products/${id}/`, { active: false });
+  },
   editProduct(id, payload) {
-    return instance.patch(`products/${id}`, payload);
+    return instance.patch(`products/${id}/`, payload);
   },
   deleteProduct(id) {
     return instance.delete(`products/${id}/`);

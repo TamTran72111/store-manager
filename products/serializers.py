@@ -12,7 +12,7 @@ class UnitSerializer(serializers.ModelSerializer):
 class UnitCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Unit
-        fields = ('product', 'name', 'price')
+        fields = ('id', 'product', 'name', 'price', 'active')
 
 
 class ProductSerializer(serializers.ModelSerializer):

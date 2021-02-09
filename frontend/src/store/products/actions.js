@@ -14,8 +14,21 @@ export default {
     const response = await api.fetchProduct(id);
     commit('fetchProduct', response.data);
   },
+  async activateProduct({ commit, getters }) {
+    await api.activateProduct(getters.productId);
+    commit('activateProduct');
+  },
+  async deactivateProduct({ commit, getters }) {
+    await api.deactivateProduct(getters.productId);
+    commit('deactivateProduct');
+  },
+  async editProduct({ commit, getters }, payload) {
+    await api.editProduct(getters.productId, payload);
+    commit('editProduct', payload);
+  },
   async addUnit({ commit }, payload) {
     const response = await api.addUnit(payload);
+    console.log(response.data);
     commit('addUnit', response.data);
   },
   async activateUnit({ commit }, unitId) {
