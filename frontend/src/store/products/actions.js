@@ -3,44 +3,44 @@ import router from '../../router';
 
 export default {
   async fetchProducts({ commit }, searchName = '') {
-    const response = await api.fetchProducts(searchName);
+    const response = await api.products.fetchAll(searchName);
     commit('fetchProducts', response.data);
   },
-  async addProduct(_, payload) {
-    const response = await api.addProduct(payload);
-    router.push(`/products/${response.data.id}`);
-  },
   async fetchProduct({ commit }, id) {
-    const response = await api.fetchProduct(id);
+    const response = await api.products.fetchOneById(id);
     commit('fetchProduct', response.data);
   },
+  async addProduct(_, payload) {
+    const response = await api.products.addProduct(payload);
+    router.push(`/products/${response.data.id}`);
+  },
+  async editProduct({ commit, getters }, payload) {
+    await api.products.updateProductById(getters.productId, payload);
+    commit('editProduct', payload);
+  },
   async activateProduct({ commit, getters }) {
-    await api.activateProduct(getters.productId);
+    await api.products.activateProduct(getters.productId);
     commit('activateProduct');
   },
   async deactivateProduct({ commit, getters }) {
-    await api.deactivateProduct(getters.productId);
+    await api.products.deactivateProduct(getters.productId);
     commit('deactivateProduct');
   },
-  async editProduct({ commit, getters }, payload) {
-    await api.editProduct(getters.productId, payload);
-    commit('editProduct', payload);
-  },
+  /********************************************************************/
   async addUnit({ commit }, payload) {
-    const response = await api.addUnit(payload);
-    console.log(response.data);
+    const response = await api.products.addUnit(payload);
     commit('addUnit', response.data);
   },
+  async editUnit({ commit }, { unitId, payload }) {
+    await api.products.updateUnitById(unitId, payload);
+    commit('editUnit', { unitId, payload });
+  },
   async activateUnit({ commit }, unitId) {
-    await api.activateUnit(unitId);
+    await api.products.activateUnit(unitId);
     commit('activateUnit', unitId);
   },
   async deactivateUnit({ commit }, unitId) {
-    await api.deactivateUnit(unitId);
+    await api.products.deactivateUnit(unitId);
     commit('deactivateUnit', unitId);
-  },
-  async editUnit({ commit }, { unitId, payload }) {
-    await api.editUnit(unitId, payload);
-    commit('editUnit', { unitId, payload });
   },
 };
