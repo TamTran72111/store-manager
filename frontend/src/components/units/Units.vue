@@ -12,16 +12,12 @@
       <Unit v-for="unit in units" :key="unit.id" :unit="unit" />
       <tr>
         <td>
-          <RequiredInput
-            type="text"
-            placeholder="Enter unit name"
-            v-model="name"
-          />
+          <RequiredInput type="text" placeholder="Enter name" v-model="name" />
         </td>
         <td>
           <RequiredInput
             type="number"
-            placeholder="Enter unit price"
+            placeholder="Enter price"
             v-model="price"
           />
         </td>
