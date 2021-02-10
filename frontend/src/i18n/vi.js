@@ -2,6 +2,7 @@ export default {
   navbar: {
     products: 'Hàng Hóa',
     customers: 'Khách Hàng',
+    orders: 'Đơn Hàng',
   },
   products: {
     list: 'Danh sách các mặt hàng',
@@ -17,7 +18,6 @@ export default {
     descriptionPlaceholder: 'Nhập thông tin về mặt hàng',
     addTitle: 'Thêm Mặt Hàng',
     detailTitle: 'Thông tin hàng',
-    search: 'Tìm kiếm',
     searchPlaceholder: 'Nhập tên để tìm kiếm hàng',
   },
   units: {
@@ -29,7 +29,6 @@ export default {
     action: '',
   },
   customers: {
-    search: 'Tìm kiếm',
     searchPlaceholder: 'Nhập tên để tìm kiếm khách hàng',
     list: 'Danh sách khách hàng',
     addButton: 'Thêm Khách Hàng',
@@ -47,10 +46,27 @@ export default {
     descriptionPlaceholder: 'Nhập thông tin khách hàng',
     addTitle: 'Thêm Khách Hàng',
   },
+  orders: {
+    searchPlaceholder: 'Nhập tên khách hàng để tìm kiếm đơn hàng',
+    list: 'Danh sách đơn hàng',
+    addButton: 'Thêm Đơn Hàng',
+    table: {
+      date: 'Ngày',
+      total: 'Tổng tiền',
+      status: 'Trạng Thái',
+    },
+    status: {
+      o: 'Chưa chuẩn bị',
+      p: 'Đang chuẩn bị',
+      r: 'Chuẩn bị xong',
+      s: 'Đã vận chuyển',
+    },
+  },
   add: 'Thêm',
   save: 'Lưu',
   cancel: 'Hủy',
   recover: 'Phục hồi',
   edit: 'Chỉnh sửa',
   delete: 'Xóa',
+  search: 'Tìm kiếm',
 };

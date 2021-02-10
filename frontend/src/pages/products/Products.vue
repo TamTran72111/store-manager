@@ -1,5 +1,5 @@
 <template>
-  <div class="products-page">
+  <div class="table-page">
     <div class="has-text-right">
       <router-link
         :to="{ name: 'product-add' }"
@@ -22,10 +22,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.products-page {
-  width: 80vw;
-  max-width: 800px;
-  margin: auto;
-}
-</style>

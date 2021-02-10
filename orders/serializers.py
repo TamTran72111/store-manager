@@ -26,10 +26,12 @@ class OrderDetailSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     total = serializers.SerializerMethodField()
     details = OrderDetailSerializer(many=True, read_only=True)
+    customer_name = serializers.CharField(
+        source='customer.name', read_only=True)
 
     class Meta:
         model = Order
-        fields = ('id', 'customer', 'status',
+        fields = ('id', 'customer', 'customer_name', 'status',
                   'created_at', 'total', 'debt', 'details')
 
     def get_total(self, instance):

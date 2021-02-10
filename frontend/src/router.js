@@ -6,6 +6,7 @@ import Product from './pages/products/Product.vue';
 import Customers from './pages/customers/Customers.vue';
 import Customer from './pages/customers/Customer.vue';
 import AddCustomer from './pages/customers/AddCustomer.vue';
+import Orders from './pages/orders/Orders.vue';
 
 const routes = [
   { path: '/', name: 'home', component: Products },
@@ -23,6 +24,7 @@ const routes = [
     component: AddCustomer,
   },
   { path: '/customers/:id', name: 'customer-detail', component: Customer },
+  { path: '/orders', name: 'orders', component: Orders },
 ];
 
 const router = createRouter({

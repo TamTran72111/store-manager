@@ -28,6 +28,9 @@
         <router-link :to="{ name: 'customers' }" class="navbar-item">{{
           t("navbar.customers")
         }}</router-link>
+        <router-link :to="{ name: 'orders' }" class="navbar-item">{{
+          t("navbar.orders")
+        }}</router-link>
       </div>
     </div>
   </nav>

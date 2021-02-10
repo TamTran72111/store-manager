@@ -2,6 +2,7 @@ export default {
   navbar: {
     products: 'Products',
     customers: 'Customers',
+    orders: 'Orders',
   },
   products: {
     list: 'Product List',
@@ -17,7 +18,6 @@ export default {
     descriptionPlaceholder: 'Enter product description',
     addTitle: 'Add Product',
     detailTitle: 'Product',
-    search: 'Search',
     searchPlaceholder: 'Enter name to search for products',
   },
   units: {
@@ -29,9 +29,8 @@ export default {
     action: 'Action',
   },
   customers: {
-    search: 'Search',
     searchPlaceholder: 'Enter name to search for customers',
-    list: 'Customer Lists',
+    list: 'Customer List',
     addButton: 'Add Customer',
     table: {
       customer: 'Customer',
@@ -47,10 +46,27 @@ export default {
     descriptionPlaceholder: 'Enter customer description',
     addTitle: 'Add Customer',
   },
+  orders: {
+    searchPlaceholder: 'Enter customer name to search for orders',
+    list: 'Order List',
+    addButton: 'Add Order',
+    table: {
+      date: 'Date',
+      total: 'Total',
+      status: 'Status',
+    },
+    status: {
+      o: 'Ordered',
+      p: 'Preparing',
+      r: 'Ready',
+      s: 'Shipped',
+    },
+  },
   add: 'Add',
   save: 'Save',
   cancel: 'Cancel',
   recover: 'Recover',
   edit: 'Edit',
   delete: 'Delete',
+  search: 'Search',
 };

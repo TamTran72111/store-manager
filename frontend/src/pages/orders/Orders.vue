@@ -1,0 +1,24 @@
+<template>
+  <div class="table-page">
+    <div class="has-text-right">
+      <router-link
+        :to="{ name: 'orders' }"
+        class="button is-primary is-outlined"
+        >{{ t("orders.addButton") }}</router-link
+      >
+    </div>
+    <OrderSearch />
+    <OrderList />
+  </div>
+</template>
+
+<script>
+import OrderList from "../../components/orders/OrderList.vue";
+import OrderSearch from "../../components/orders/OrderSearch.vue";
+
+export default {
+  components: { OrderList, OrderSearch },
+  inject: ["t"],
+};
+</script>
+

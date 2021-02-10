@@ -9,7 +9,7 @@ const messages = {
 };
 
 const i18n = createI18n({
-  locale: 'en', // set locale
+  locale: 'vi', // set locale
   messages, // set locale messages
 });
 

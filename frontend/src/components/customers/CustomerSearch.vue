@@ -1,6 +1,5 @@
 <template>
   <ListSearch
-    label="customers.search"
     placeholder="customers.searchPlaceholder"
     actionName="customers/fetchCustomers"
   />

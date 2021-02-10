@@ -26,8 +26,9 @@ export default {
 </script>
 
 <style>
+.table-page,
 table.table {
-  width: 80vw;
+  width: 92vw;
   max-width: 800px;
   margin: auto;
 }
