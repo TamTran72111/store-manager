@@ -11,7 +11,7 @@ export default {
     commit('fetchProduct', response.data);
   },
   async addProduct(_, payload) {
-    const response = await api.products.addProduct(payload);
+    const response = await api.products.add(payload);
     router.push(`/products/${response.data.id}`);
   },
   async editProduct({ commit, getters }, payload) {

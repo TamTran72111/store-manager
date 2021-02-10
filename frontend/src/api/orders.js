@@ -1,18 +1,3 @@
-import axios from './axios';
+import BaseAPI from './base';
 
-const BASE_ENDPOINT = 'orders';
-
-export default {
-  fetchAll(searchName) {
-    return axios.get(`${BASE_ENDPOINT}/?name=${searchName}`);
-  },
-  fetchOneById(id) {
-    return axios.get(`${BASE_ENDPOINT}/${id}/`);
-  },
-  add(payload) {
-    return axios.post(`${BASE_ENDPOINT}/`, payload);
-  },
-  updateById(id, payload) {
-    return axios.patch(`${BASE_ENDPOINT}/${id}/`, payload);
-  },
-};
+export default new BaseAPI('orders');
