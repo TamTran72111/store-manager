@@ -22,7 +22,7 @@ class Order(models.Model):
         related_query_name='order',
         on_delete=models.CASCADE
     )
-    created_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
         max_length=1,
         choices=ORDER_STATUS,
