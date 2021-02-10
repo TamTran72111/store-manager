@@ -2,7 +2,7 @@
   <div class="table-page">
     <div class="has-text-right">
       <router-link
-        :to="{ name: 'orders' }"
+        :to="{ name: 'order-add' }"
         class="button is-primary is-outlined"
         >{{ t("orders.addButton") }}</router-link
       >
