@@ -5,6 +5,8 @@
     :placeholder="placeholder"
     :label="label"
     v-model="value"
+    :blur="blur"
+    :focus="focus"
   />
 </template>
 
@@ -14,11 +16,26 @@ import UnrequiredInput from "./UnrequiredInput.vue";
 
 export default {
   components: { UnrequiredInput },
-  props: ["type", "icon", "placeholder", "modelValue", "label", "time"],
+  props: [
+    "type",
+    "icon",
+    "placeholder",
+    "modelValue",
+    "label",
+    "time",
+    "blur",
+    "focus",
+  ],
   emits: ["update:modelValue"],
   setup(props, context) {
     let timer = null;
     const value = ref(props.modelValue);
+
+    watch(props, () => {
+      if (props.modelValue !== value.value) {
+        value.value = props.modelValue;
+      }
+    });
 
     watch(value, () => {
       if (timer) {
