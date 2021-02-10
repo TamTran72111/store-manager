@@ -45,6 +45,7 @@ export default {
     phonePlaceholder: 'Nhập số  điện thoại của khách hàng',
     addressPlaceholder: 'Nhập địa chỉ của khách hàng',
     descriptionPlaceholder: 'Nhập thông tin khách hàng',
+    addTitle: 'Thêm Khách Hàng',
   },
   add: 'Thêm',
   save: 'Lưu',

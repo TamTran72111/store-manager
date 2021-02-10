@@ -45,6 +45,7 @@ export default {
     phonePlaceholder: 'Enter customer phone number',
     addressPlaceholder: 'Enter customer address',
     descriptionPlaceholder: 'Enter customer description',
+    addTitle: 'Add Customer',
   },
   add: 'Add',
   save: 'Save',

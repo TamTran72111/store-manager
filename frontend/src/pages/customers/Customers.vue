@@ -2,7 +2,7 @@
   <div class="products-page">
     <div class="has-text-right">
       <router-link
-        :to="{ name: 'product-add' }"
+        :to="{ name: 'customer-add' }"
         class="button is-primary is-outlined"
         >{{ t("customers.addButton") }}</router-link
       >
