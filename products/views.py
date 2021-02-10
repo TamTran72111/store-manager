@@ -1,8 +1,9 @@
+from rest_framework import mixins
 from rest_framework.generics import (
     CreateAPIView,
     RetrieveUpdateAPIView,
 )
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import GenericViewSet
 
 from .models import Product, Unit
 from .serializers import (
@@ -12,7 +13,11 @@ from .serializers import (
 )
 
 
-class ProductViewSet(ModelViewSet):
+class ProductViewSet(mixins.CreateModelMixin,
+                     mixins.RetrieveModelMixin,
+                     mixins.UpdateModelMixin,
+                     mixins.ListModelMixin,
+                     GenericViewSet):
     serializer_class = ProductSerializer
 
     def get_queryset(self):
