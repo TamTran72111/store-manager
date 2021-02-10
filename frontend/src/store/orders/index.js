@@ -8,6 +8,7 @@ export default {
     return {
       orders: [],
       order: null,
+      customer: null,
     };
   },
   getters,

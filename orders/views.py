@@ -3,7 +3,7 @@ from rest_framework.viewsets import GenericViewSet
 
 from .models import Order, OrderDetail
 from .serializers import (
-    OrderListCreateUpdateSerializer,
+    OrderSerializer,
     OrderRetrieveSerializer,
     OrderDetailSerializer)
 
@@ -20,7 +20,7 @@ class OrderViewSet(mixins.CreateModelMixin,
     def get_serializer_class(self):
         if self.action == 'retrieve':
             return OrderRetrieveSerializer
-        return OrderListCreateUpdateSerializer
+        return OrderSerializer
 
 
 class OrderDetailViewSet(mixins.CreateModelMixin,

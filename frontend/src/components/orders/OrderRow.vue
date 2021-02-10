@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td>
-      <router-link :to="{ name: 'orders', params: { id: order.id } }"
+      <router-link :to="{ name: 'order-detail', params: { id: order.id } }"
         ><span>{{ order.customer_name }}</span></router-link
       >
     </td>

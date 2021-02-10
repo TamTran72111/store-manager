@@ -8,4 +8,7 @@ export default {
   editOrder(state, payload) {
     state.order = { ...state.order, ...payload };
   },
+  fetchOrderCusomer(state, customer) {
+    state.customer = customer;
+  },
 };

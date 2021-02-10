@@ -43,4 +43,16 @@ th {
   text-decoration: line-through !important;
   color: grey !important;
 }
+
+th.hide-on-small,
+td.hide-on-small {
+  display: none;
+}
+
+@media (min-width: 700px) {
+  th.hide-on-small,
+  td.hide-on-small {
+    display: table-cell;
+  }
+}
 </style>

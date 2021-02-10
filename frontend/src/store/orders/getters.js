@@ -8,4 +8,7 @@ export default {
   orderId(state) {
     return state.order?.id;
   },
+  customer(state) {
+    return state.customer;
+  },
 };

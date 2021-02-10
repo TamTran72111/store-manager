@@ -9,6 +9,8 @@ export default {
   async fetchOrder({ commit }, id) {
     const response = await api.orders.fetchOneById(id);
     commit('fetchOrder', response.data);
+    const resp = await api.customers.fetchOneById(response.data.customer);
+    commit('fetchOrderCusomer', resp.data);
   },
   async addOrder(_, payload) {
     const response = await api.orders.add(payload);
