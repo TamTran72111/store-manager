@@ -37,10 +37,13 @@ class Order(models.Model):
 
     @property
     def total(self):
-        return sum([detail.cost for detail in self.details.all()])
+        return sum([detail.cost for detail in self.details.all()]) + self.debt
 
     def is_shipped(self):
         return self.status == 's'
+
+    def update_debt(self):
+        self.debt = self.customer.debt
 
     @classmethod
     def get_query_orders(cls, query):
@@ -49,6 +52,11 @@ class Order(models.Model):
             today = datetime.datetime.today() - datetime.timedelta(hours=4)
             return Order.objects.filter(created_at__gte=today)
         return Order.objects.order_by('-created_at')
+
+
+@receiver(pre_save, sender=Order, dispatch_uid='Order_pre_save')
+def get_debt(sender, instance, *args, **kwargs):
+    instance.update_debt()
 
 
 class OrderDetail(models.Model):

@@ -25,18 +25,24 @@ class OrderDetailSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     total = serializers.SerializerMethodField()
-    details = OrderDetailSerializer(many=True, read_only=True)
     customer_name = serializers.CharField(
         source='customer.name', read_only=True)
+
+    def get_total(self, instance):
+        return instance.total
+
+
+class OrderListCreateUpdateSerializer(OrderSerializer):
+    class Meta:
+        model = Order
+        fields = ('id', 'customer', 'customer_name', 'status',
+                  'created_at', 'total')
+
+
+class OrderRetrieveSerializer(OrderSerializer):
+    details = OrderDetailSerializer(many=True, read_only=True)
 
     class Meta:
         model = Order
         fields = ('id', 'customer', 'customer_name', 'status',
                   'created_at', 'total', 'debt', 'details')
-
-    def get_total(self, instance):
-        return instance.total
-
-    def create(self, validated_data):
-        validated_data['debt'] = validated_data['customer'].debt
-        return super().create(validated_data)
