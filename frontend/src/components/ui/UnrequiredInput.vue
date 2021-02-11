@@ -13,6 +13,7 @@
         @blur="blur_"
         @focus="focus"
         @keypress.enter="enter"
+        :readonly="readonly"
       />
       <span v-if="!!icon" class="icon is-small is-left">
         <i :class="`fas ${icon}`"></i>
@@ -43,6 +44,10 @@ export default {
     label: { type: String, default: "" },
     blur: { type: Function, default: () => {} },
     focus: { type: Function, default: () => {} },
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ["update:modelValue"],
   setup(props, context) {
