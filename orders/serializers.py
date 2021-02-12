@@ -22,6 +22,18 @@ class OrderDetailSerializer(serializers.ModelSerializer):
     def get_unit_name(self, instance):
         return instance.unit.name
 
+    def validate_quantity(self, attr):
+        if attr <= 0:
+            raise serializers.ValidationError(
+                'The quantity must be greater than 0')
+        return attr
+
+    def validate(self, attrs):
+        price = attrs.get('price', 0)
+        if price <= 0:
+            attrs['price'] = attrs['unit'].price
+        return attrs
+
 
 class OrderSerializer(serializers.ModelSerializer):
     customer_name = serializers.CharField(
