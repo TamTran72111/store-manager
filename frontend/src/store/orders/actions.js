@@ -24,4 +24,8 @@ export default {
     const response = await api.orderDetails.add(payload);
     commit('addDetail', response.data);
   },
+  async editDetail({ commit }, { id, payload }) {
+    const response = await api.orderDetails.updateById(id, payload);
+    commit('editDetail', { id, detail: response.data });
+  },
 };

@@ -71,6 +71,7 @@ export default {
       ready: 'Ready',
       add: 'Add Order Detail',
       edit: 'Edit',
+      editTitle: 'Edit Order Detail',
       select: 'Select Measurement Unit',
     },
     quantityPlaceholder: 'Enter quantity',
