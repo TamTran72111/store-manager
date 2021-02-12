@@ -11,4 +11,7 @@ export default {
   fetchOrderCusomer(state, customer) {
     state.customer = customer;
   },
+  addDetail(state, detail) {
+    state.order.details.push(detail);
+  },
 };

@@ -20,4 +20,8 @@ export default {
     await api.orders.updateById(getters.orderId, payload);
     commit('editOrder', payload);
   },
+  async addDetail({ commit }, payload) {
+    const response = await api.orderDetails.add(payload);
+    commit('addDetail', response.data);
+  },
 };

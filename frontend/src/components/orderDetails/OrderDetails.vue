@@ -21,10 +21,16 @@
     </tbody>
   </table>
   <div class="has-text-centered has-text-primary is-size-2">
-    <span :title="t('orders.details.add')" class="icon"
+    <span @click="toggleAdd" :title="t('orders.details.add')" class="icon"
       ><i class="fas fa-plus-circle"></i
     ></span>
   </div>
+  <OrderDetailModal
+    v-if="showAdd"
+    :title="t('orders.details.add')"
+    @close="toggleAdd"
+    @save="addDetail"
+  />
 </template>
 
 <script>
@@ -33,16 +39,21 @@ import { useStore } from "vuex";
 
 import RequiredInput from "../ui/RequiredInput.vue";
 import OrderDetail from "./OrderDetail.vue";
+import OrderDetailModal from "./OrderDetailModal.vue";
 
 export default {
-  components: { RequiredInput, OrderDetail },
+  components: { RequiredInput, OrderDetail, OrderDetailModal },
   props: ["orderId", "details"],
   inject: ["t"],
   setup(props) {
     const name = ref("");
     const price = ref(0);
+    const showAdd = ref(false);
     const store = useStore();
 
+    const toggleAdd = () => {
+      showAdd.value = !showAdd.value;
+    };
     const click = async () => {
       await store.dispatch("products/addOrderDetail", {
         product: props.productId,
@@ -52,7 +63,16 @@ export default {
       name.value = "";
       price.value = 0;
     };
-    return { name, price, click };
+
+    const addDetail = async (payload) => {
+      await store.dispatch("orders/addDetail", {
+        order: props.orderId,
+        ...payload,
+      });
+      showAdd.value = false;
+    };
+
+    return { name, price, showAdd, toggleAdd, click, addDetail };
   },
 };
 </script>
