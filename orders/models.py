@@ -1,7 +1,6 @@
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-
 import datetime
 
 from customers.models import Customer
@@ -67,13 +66,12 @@ class OrderDetail(models.Model):
         on_delete=models.CASCADE
     )
     unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
-    # Need to have a price to avoid the effect of changing price in unit
+    # Need to have a price to avoid the effect of changing price in unit,
+    # and allow to have different prices depending on customers
     price = models.DecimalField(
         blank=True, default=0, max_digits=15, decimal_places=2)
     ready = models.BooleanField(default=False)
     quantity = models.DecimalField(max_digits=8, decimal_places=2)
-    discount = models.DecimalField(
-        blank=True, default=0, max_digits=15, decimal_places=2)
 
     def __str__(self):
         return f'{self.product.name} ::: {self.order}'
@@ -84,15 +82,10 @@ class OrderDetail(models.Model):
 
     @property
     def cost(self):
-        return (self.price - self.discount) * self.quantity
+        return self.price * self.quantity
 
     def update_price(self):
         self.price = self.unit.price
 
     def is_shipped(self):
         return self.order.is_shipped()
-
-
-@receiver(pre_save, sender=OrderDetail, dispatch_uid='OrderDetail_pre_save')
-def get_price(sender, instance, *args, **kwargs):
-    instance.update_price()
