@@ -66,8 +66,6 @@ export default {
     details: {
       title: 'Thông Tin Đơn Hàng',
       quantity: 'Số Lượng',
-      discount: 'Chiết Khấu',
-      priceAfterDiscount: 'Giá Sau Chiết Khấu',
       cost: 'Thành Tiền',
       ready: 'Đã Soạn',
       add: 'Thêm Mặt Hàng',
@@ -76,7 +74,6 @@ export default {
       select: 'Chọn Đơn Vị Tính',
     },
     quantityPlaceholder: 'Nhập số lượng hàng',
-    discountPlaceholder: 'Nhập mức chiết khấu',
   },
   add: 'Thêm',
   save: 'Lưu',

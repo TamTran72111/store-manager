@@ -65,8 +65,6 @@ export default {
     details: {
       title: 'Order Details',
       quantity: 'Quantity',
-      discount: 'Discount',
-      priceAfterDiscount: 'Price After Discount',
       cost: 'Cost',
       ready: 'Ready',
       add: 'Add Order Detail',
@@ -75,7 +73,6 @@ export default {
       select: 'Select Measurement Unit',
     },
     quantityPlaceholder: 'Enter quantity',
-    discountPlaceholder: 'Enter discount',
   },
   add: 'Add',
   save: 'Save',

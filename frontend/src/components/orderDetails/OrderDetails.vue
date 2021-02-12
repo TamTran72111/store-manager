@@ -7,7 +7,6 @@
         <th>{{ t("products.table.unit") }}</th>
         <th class="hide-on-small">{{ t("products.table.price") }}</th>
         <th>{{ t("orders.details.quantity") }}</th>
-        <th class="hide-on-small">{{ t("orders.details.discount") }}</th>
         <th>{{ t("orders.details.cost") }}</th>
         <th style="width: 50px">{{ t("orders.details.edit") }}</th>
       </tr>

@@ -57,28 +57,10 @@
                 <tr>
                   <th>{{ t("products.table.price") }}</th>
                   <td>
-                    <UnrequiredInput type="number" v-model="price" readonly />
-                  </td>
-                </tr>
-
-                <tr>
-                  <th>{{ t("orders.details.discount") }}</th>
-                  <td>
                     <UnrequiredInput
                       type="number"
-                      :placeholder="t('orders.discountPlaceholder')"
-                      v-model="discount"
-                    />
-                  </td>
-                </tr>
-
-                <tr>
-                  <th>{{ t("orders.details.priceAfterDiscount") }}</th>
-                  <td>
-                    <UnrequiredInput
-                      type="number"
-                      v-model="priceAfterDiscount"
-                      readonly
+                      v-model="price"
+                      :placeholder="t('units.pricePlaceholder')"
                     />
                   </td>
                 </tr>
@@ -151,8 +133,7 @@ export default {
     const product = ref(props.detail?.product_id);
     const unit = ref(props.detail?.unit);
     const quantity = ref(props.detail?.quantity);
-    // Tracking discount per unit
-    const discount = ref(parseFloat(props.detail?.discount || 0));
+    const price = ref(props.detail?.price || 0);
     const ready = ref(false);
 
     const units = computed(() => {
@@ -179,43 +160,35 @@ export default {
       }
     });
 
-    const price = computed(() => {
-      return units.value?.find((u) => u.id === unit.value)?.price || 0;
-    });
-
-    const priceAfterDiscount = computed(() => {
-      // Convert to float to avoid comparing and calculating string values
-      const pValue = parseFloat(price.value);
-      const dValue = parseFloat(discount.value);
-
-      if (dValue > 0 && pValue > dValue) {
-        return pValue - dValue;
+    watch(unit, () => {
+      if (unit.value > 0) {
+        const targetUnit = units.value?.find((u) => u.id === unit.value);
+        if (targetUnit) {
+          price.value = targetUnit.price;
+        } else {
+          price.value = 0;
+        }
       } else {
-        return pValue;
+        price.value = 0;
       }
     });
 
     const cost = computed(() => {
-      if (price.value && quantity.value > 0 && discount.value >= 0) {
-        return (price.value - discount.value) * quantity.value;
+      if (price.value && quantity.value > 0) {
+        return price.value * quantity.value;
       }
       return 0;
     });
 
     const isInvalid = computed(() => {
-      return !(
-        unit.value > 0 &&
-        quantity.value > 0 &&
-        discount.value >= 0 &&
-        cost.value >= 0
-      );
+      return !(unit.value > 0 && quantity.value > 0 && price.value > 0);
     });
 
     const save = () => {
       context.emit("save", {
         unit: unit.value,
         quantity: quantity.value,
-        discount: discount.value,
+        price: price.value,
         ready: ready.value,
       });
     };
@@ -229,8 +202,6 @@ export default {
       unit,
       price,
       quantity,
-      discount,
-      priceAfterDiscount,
       cost,
       ready,
       isInvalid,

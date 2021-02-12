@@ -15,7 +15,6 @@
 
     <td class="has-text-right hide-on-small">{{ detail.price }}</td>
     <td class="has-text-right">{{ detail.quantity }}</td>
-    <td class="has-text-right hide-on-small">{{ detail.discount }}</td>
     <td class="has-text-right">{{ detail.cost }}</td>
     <td class="has-text-centered has-text-info">
       <span :title="t('edit')" @click="toggleEdit" class="icon"
