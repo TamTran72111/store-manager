@@ -84,7 +84,7 @@ class OrderDetail(models.Model):
 
     @property
     def cost(self):
-        return self.price * self.quantity
+        return (self.price - self.discount) * self.quantity
 
     def update_price(self):
         self.price = self.unit.price
