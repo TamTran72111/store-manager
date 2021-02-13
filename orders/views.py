@@ -1,11 +1,13 @@
 from rest_framework import mixins
+from rest_framework.generics import UpdateAPIView
 from rest_framework.viewsets import GenericViewSet
 
 from .models import Order, OrderDetail
 from .serializers import (
     OrderSerializer,
     OrderRetrieveSerializer,
-    OrderDetailSerializer)
+    OrderDetailSerializer,
+    UpdatePriceSerializer)
 
 
 class OrderViewSet(mixins.CreateModelMixin,
@@ -29,4 +31,9 @@ class OrderDetailViewSet(mixins.CreateModelMixin,
                          mixins.ListModelMixin,
                          GenericViewSet):
     serializer_class = OrderDetailSerializer
+    queryset = OrderDetail.objects.all()
+
+
+class UpdatePriceAPIView(UpdateAPIView):
+    serializer_class = UpdatePriceSerializer
     queryset = OrderDetail.objects.all()

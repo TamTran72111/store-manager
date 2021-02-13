@@ -3,7 +3,7 @@ from rest_framework import serializers
 from .models import Order, OrderDetail
 
 
-class OrderDetailSerializer(serializers.ModelSerializer):
+class OrderDetailBaseSerializer(serializers.ModelSerializer):
     product_id = serializers.SerializerMethodField()
     product_name = serializers.SerializerMethodField()
     unit_name = serializers.SerializerMethodField()
@@ -22,6 +22,8 @@ class OrderDetailSerializer(serializers.ModelSerializer):
     def get_unit_name(self, instance):
         return instance.unit.name
 
+
+class OrderDetailSerializer(OrderDetailBaseSerializer):
     def validate_quantity(self, attr):
         if attr <= 0:
             raise serializers.ValidationError(
@@ -33,6 +35,25 @@ class OrderDetailSerializer(serializers.ModelSerializer):
         if price <= 0:
             attrs['price'] = attrs['unit'].price
         return attrs
+
+
+class UpdatePriceSerializer(OrderDetailBaseSerializer):
+    class Meta:
+        model = OrderDetail
+        fields = ('id', 'order', 'unit', 'product_id', 'product_name',
+                  'unit_name', 'price', 'cost', 'ready', 'quantity', )
+
+        extra_kwargs = {
+            'order': {'read_only': True},
+            'unit': {'read_only': True},
+            'price': {'read_only': True},
+            'ready': {'read_only': True},
+            'quantity': {'read_only': True},
+        }
+
+    def update(self, instance, validated_data):
+        instance.price = instance.unit.price
+        return super().update(instance, validated_data)
 
 
 class OrderSerializer(serializers.ModelSerializer):
