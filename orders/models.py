@@ -55,7 +55,9 @@ class Order(models.Model):
 
 @receiver(pre_save, sender=Order, dispatch_uid='Order_pre_save')
 def get_debt(sender, instance, *args, **kwargs):
-    instance.update_debt()
+    if instance.id is None:
+        # only load automatically when creating
+        instance.update_debt()
 
 
 class OrderDetail(models.Model):

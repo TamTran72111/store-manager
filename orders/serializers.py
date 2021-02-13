@@ -63,7 +63,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ('id', 'customer', 'customer_name', 'status',
-                  'created_at', 'total')
+                  'created_at', 'debt', 'total')
 
 
 class OrderRetrieveSerializer(OrderSerializer):
