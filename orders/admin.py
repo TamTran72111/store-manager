@@ -13,4 +13,4 @@ class OrderDetailInline(admin.TabularInline):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderDetailInline]
-    list_display = ('customer', 'created_at', 'total')
+    list_display = ('customer', 'created_at', 'subtotal')

@@ -10,6 +10,9 @@ router.register('', OrderViewSet, basename='order')
 
 
 urlpatterns = [
-    path('orders/details/<int:pk>/update-price/', UpdatePriceAPIView.as_view()),
+    path(
+        'orders/details/<int:pk>/update-price/',
+        UpdatePriceAPIView.as_view()
+    ),
     path('orders/', include(router.urls))
 ]

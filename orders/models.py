@@ -35,8 +35,8 @@ class Order(models.Model):
             f'{self.created_at.strftime("%b %d %Y %H:%M:%S")}'
 
     @property
-    def total(self):
-        return sum([detail.cost for detail in self.details.all()]) + self.debt
+    def subtotal(self):
+        return sum([detail.cost for detail in self.details.all()])
 
     def is_shipped(self):
         return self.status == 's'

@@ -31,7 +31,6 @@ class OrderDetailSerializer(OrderDetailBaseSerializer):
         return attr
 
     def create(self, validated_data):
-        # def validate(self, attrs):
         price = validated_data.get('price', 0)
         if price <= 0:
             validated_data['price'] = validated_data['unit'].price
@@ -64,7 +63,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ('id', 'customer', 'customer_name', 'status',
-                  'created_at', 'debt', 'total')
+                  'created_at', 'debt', 'subtotal')
 
 
 class OrderRetrieveSerializer(OrderSerializer):
@@ -73,4 +72,4 @@ class OrderRetrieveSerializer(OrderSerializer):
     class Meta:
         model = Order
         fields = ('id', 'customer', 'customer_name', 'status',
-                  'created_at', 'total', 'debt', 'details')
+                  'created_at', 'subtotal', 'debt', 'details')
