@@ -91,3 +91,12 @@ class OrderDetail(models.Model):
 
     def is_shipped(self):
         return self.order.is_shipped()
+
+
+@receiver(pre_save, sender=OrderDetail, dispatch_uid='OrderDetail_post_save')
+def update_customer_debt(sender, instance, *args, **kwargs):
+    if instance.id is None:
+        old_cost = 0
+    else:
+        old_cost = OrderDetail.objects.get(id=instance.id).cost
+    instance.order.customer.update_order_detail(instance.cost, old_cost)

@@ -15,5 +15,10 @@ class Customer(models.Model, SearchNameMixin):
     def __str__(self):
         return self.name
 
+    def update_order_detail(self, new_cost, old_cost=0):
+        if old_cost != new_cost:
+            self.debt += new_cost - old_cost
+            self.save()
+
 
 pre_save.connect(Customer.pre_save, Customer, dispatch_uid='Customer_pre_save')

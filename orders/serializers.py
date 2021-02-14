@@ -30,11 +30,12 @@ class OrderDetailSerializer(OrderDetailBaseSerializer):
                 'The quantity must be greater than 0')
         return attr
 
-    def validate(self, attrs):
-        price = attrs.get('price', 0)
+    def create(self, validated_data):
+        # def validate(self, attrs):
+        price = validated_data.get('price', 0)
         if price <= 0:
-            attrs['price'] = attrs['unit'].price
-        return attrs
+            validated_data['price'] = validated_data['unit'].price
+        return super().create(validated_data)
 
 
 class UpdatePriceSerializer(OrderDetailBaseSerializer):
