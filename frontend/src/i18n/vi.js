@@ -52,6 +52,7 @@ export default {
     addButton: 'Thêm Đơn Hàng',
     table: {
       date: 'Ngày',
+      subtotal: 'Tổng tiền hàng',
       total: 'Tổng tiền',
       status: 'Trạng Thái',
     },

@@ -31,6 +31,19 @@
         </td>
       </tr>
       <tr>
+        <th>{{ t("orders.table.subtotal") }}</th>
+        <td class="has-text-centered">
+          <strong>{{ subtotal.toFixed(2) }}</strong>
+        </td>
+      </tr>
+      <tr>
+        <th>{{ t("orders.table.total") }}</th>
+        <td class="has-text-centered">
+          <strong>{{ total.toFixed(2) }}</strong>
+        </td>
+      </tr>
+
+      <tr>
         <th>{{ t("orders.table.status") }}</th>
         <td class="has-text-centered">
           <strong v-if="order">{{ t(`orders.status.${order.status}`) }}</strong>
@@ -70,9 +83,23 @@ export default {
       return store.getters["orders/customer"];
     });
 
+    const subtotal = computed(() => {
+      return store.getters["orders/subtotal"];
+    });
+
+    const total = computed(() => {
+      if (order.value) {
+        return parseFloat(order.value.debt) + subtotal.value;
+      } else {
+        return 0;
+      }
+    });
+
     return {
       order,
       customer,
+      subtotal,
+      total,
     };
   },
 };

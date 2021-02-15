@@ -11,4 +11,12 @@ export default {
   customer(state) {
     return state.customer;
   },
+  subtotal(state) {
+    return (
+      state.order?.details.reduce(
+        (subtotal, detail) => subtotal + parseFloat(detail.cost),
+        0
+      ) || 0
+    );
+  },
 };

@@ -134,7 +134,7 @@ export default {
     const unit = ref(props.detail?.unit);
     const quantity = ref(props.detail?.quantity);
     const price = ref(props.detail?.price || 0);
-    const ready = ref(false);
+    const ready = ref(props.detail?.ready || false);
 
     const units = computed(() => {
       if (product.value) {

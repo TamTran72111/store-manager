@@ -52,6 +52,7 @@ export default {
     addButton: 'Add Order',
     table: {
       date: 'Date',
+      subtotal: 'Subtotal',
       total: 'Total',
       status: 'Status',
     },
