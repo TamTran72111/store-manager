@@ -11,6 +11,9 @@
     <td class="has-text-right">
       <span>{{ total.toFixed(2) }}</span>
     </td>
+    <td class="has-text-right">
+      <span>{{ parseFloat(order.payment).toFixed(2) }}</span>
+    </td>
     <td class="has-text-centered">{{ t(`orders.status.${order.status}`) }}</td>
   </tr>
 </template>

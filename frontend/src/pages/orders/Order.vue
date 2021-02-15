@@ -42,6 +42,19 @@
           <strong>{{ total.toFixed(2) }}</strong>
         </td>
       </tr>
+      <tr>
+        <th>{{ t("orders.table.payment") }}</th>
+        <td class="has-text-centered">
+          <strong>{{ parseFloat(order?.payment).toFixed(2) }}</strong>
+        </td>
+      </tr>
+
+      <tr>
+        <th>{{ t("orders.table.remain") }}</th>
+        <td class="has-text-centered">
+          <strong>{{ remain.toFixed(2) }}</strong>
+        </td>
+      </tr>
 
       <tr>
         <th>{{ t("orders.table.status") }}</th>
@@ -95,11 +108,19 @@ export default {
       }
     });
 
+    const remain = computed(() => {
+      if (order.value) {
+        return total.value - parseFloat(order.value.payment);
+      }
+      return 0;
+    });
+
     return {
       order,
       customer,
       subtotal,
       total,
+      remain,
     };
   },
 };

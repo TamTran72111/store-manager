@@ -54,6 +54,8 @@ export default {
       date: 'Ngày',
       subtotal: 'Tổng tiền hàng',
       total: 'Tổng tiền',
+      payment: 'Đã thanh toán',
+      remain: 'Còn thiếu',
       status: 'Trạng Thái',
     },
     // The terminology is speicified to the target store.

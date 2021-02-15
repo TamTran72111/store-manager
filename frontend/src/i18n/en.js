@@ -54,6 +54,8 @@ export default {
       date: 'Date',
       subtotal: 'Subtotal',
       total: 'Total',
+      payment: 'Payment',
+      remain: 'Remain',
       status: 'Status',
     },
     status: {

@@ -6,6 +6,7 @@
         <th>{{ t("customers.table.customer") }}</th>
         <th>{{ t("orders.table.date") }}</th>
         <th style="width: 130px">{{ t("orders.table.total") }}</th>
+        <th style="width: 130px">{{ t("orders.table.payment") }}</th>
         <th>{{ t("orders.table.status") }}</th>
       </tr>
     </thead>
