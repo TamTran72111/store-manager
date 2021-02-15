@@ -29,6 +29,7 @@ class Order(models.Model):
         default='o'
     )
     debt = models.DecimalField(default=0, max_digits=15, decimal_places=2)
+    payment = models.DecimalField(default=0, max_digits=15, decimal_places=2)
 
     def __str__(self):
         return f'{self.customer.name} - ' +\
@@ -58,6 +59,10 @@ def get_debt(sender, instance, *args, **kwargs):
     if instance.id is None:
         # only load automatically when creating
         instance.update_debt()
+        instance.customer.pay(instance.payment or 0)
+    else:
+        old_payment = Order.objects.get(id=instance.id).payment
+        instance.customer.pay(instance.payment - old_payment)
 
 
 class OrderDetail(models.Model):

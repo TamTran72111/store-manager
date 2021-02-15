@@ -20,5 +20,10 @@ class Customer(models.Model, SearchNameMixin):
             self.debt += new_cost - old_cost
             self.save()
 
+    def pay(self, payment):
+        if payment != 0:
+            self.debt -= payment
+            self.save()
+
 
 pre_save.connect(Customer.pre_save, Customer, dispatch_uid='Customer_pre_save')
