@@ -3,6 +3,7 @@ export default {
     products: 'Products',
     customers: 'Customers',
     orders: 'Orders',
+    settings: 'Settings',
   },
   products: {
     list: 'Product List',
@@ -76,6 +77,10 @@ export default {
       select: 'Select Measurement Unit',
     },
     quantityPlaceholder: 'Enter quantity',
+  },
+  settings: {
+    title: 'Settings',
+    selectLanguage: 'Select your language',
   },
   add: 'Add',
   save: 'Save',

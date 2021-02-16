@@ -3,6 +3,7 @@ export default {
     products: 'Hàng Hóa',
     customers: 'Khách Hàng',
     orders: 'Đơn Hàng',
+    settings: 'Cài Đặt',
   },
   products: {
     list: 'Danh sách các mặt hàng',
@@ -77,6 +78,10 @@ export default {
       select: 'Chọn Đơn Vị Tính',
     },
     quantityPlaceholder: 'Nhập số lượng hàng',
+  },
+  settings: {
+    title: 'Cài Đặt',
+    selectLanguage: 'Lựa chọn ngôn ngữ',
   },
   add: 'Thêm',
   save: 'Lưu',

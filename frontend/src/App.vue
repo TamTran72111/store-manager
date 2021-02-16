@@ -10,6 +10,8 @@
 <script>
 import Navbar from "./components/Navbar.vue";
 import { useI18n } from "vue-i18n";
+import { onBeforeMount } from "vue";
+import { useStore } from "vuex";
 
 export default {
   components: { Navbar },
@@ -20,6 +22,10 @@ export default {
   },
   setup() {
     const { t } = useI18n();
+    const store = useStore();
+    onBeforeMount(() => {
+      store.dispatch("setLanguage");
+    });
     return { t };
   },
 };
