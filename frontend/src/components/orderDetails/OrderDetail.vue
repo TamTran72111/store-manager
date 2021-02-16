@@ -24,7 +24,7 @@
   </tr>
   <OrderDetailModal
     v-if="showEdit"
-    :title="t('orders.details.')"
+    :title="t('orders.details.editTitle')"
     :detail="detail"
     @close="toggleEdit"
     @save="edit"
