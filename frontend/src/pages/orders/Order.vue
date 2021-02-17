@@ -64,25 +64,32 @@
       </tr>
     </tbody>
   </table>
-
+  <div class="has-text-centered mb-5 pb-4">
+    <button @click="togglePayment" class="button is-primary is-outlined">
+      {{ t("orders.pay") }}
+    </button>
+  </div>
   <OrderDetails v-if="order" :orderId="order.id" :details="order.details" />
+  <PaymentModal v-if="showPayment" @close="togglePayment" />
 </template>
 
 <script>
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
-import { computed, onBeforeMount, ref, watch } from "vue";
+import { computed, onBeforeMount, ref } from "vue";
 
 import OrderDetails from "../../components/orderDetails/OrderDetails.vue";
 import RequiredInput from "../../components/ui/RequiredInput.vue";
 import UnrequiredInput from "../../components/ui/UnrequiredInput.vue";
+import PaymentModal from "../../components/orders/PaymentModal.vue";
 
 export default {
-  components: { OrderDetails, RequiredInput, UnrequiredInput },
+  components: { OrderDetails, RequiredInput, UnrequiredInput, PaymentModal },
   inject: ["t"],
   setup() {
     const route = useRoute();
     const store = useStore();
+    const showPayment = ref(false);
 
     onBeforeMount(() => {
       store.dispatch("orders/fetchOrder", route.params.id);
@@ -115,12 +122,18 @@ export default {
       return 0;
     });
 
+    const togglePayment = () => {
+      showPayment.value = !showPayment.value;
+    };
+
     return {
       order,
       customer,
       subtotal,
       total,
       remain,
+      showPayment,
+      togglePayment,
     };
   },
 };
@@ -142,6 +155,6 @@ div.button-group button {
   width: 100px;
 }
 table.table {
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 </style>

@@ -78,6 +78,12 @@ export default {
       select: 'Chọn Đơn Vị Tính',
     },
     quantityPlaceholder: 'Nhập số lượng hàng',
+    pay: 'Thanh toán',
+    paymentPlaceholder: 'Nhập số tiền đã thanh toán',
+    payment: {
+      title: 'Thanh Toán',
+      payment: 'Số tiền đã thanh toán',
+    },
   },
   settings: {
     title: 'Cài Đặt',

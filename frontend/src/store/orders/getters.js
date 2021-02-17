@@ -19,4 +19,7 @@ export default {
       ) || 0
     );
   },
+  payment(state) {
+    return state.order?.payment || 0;
+  },
 };

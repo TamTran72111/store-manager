@@ -77,6 +77,12 @@ export default {
       select: 'Select Measurement Unit',
     },
     quantityPlaceholder: 'Enter quantity',
+    pay: 'Pay',
+    paymentPlaceholder: 'Enter payment',
+    payment: {
+      title: 'Payment',
+      payment: 'Payment',
+    },
   },
   settings: {
     title: 'Settings',
