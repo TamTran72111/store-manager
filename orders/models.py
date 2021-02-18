@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
@@ -64,10 +65,21 @@ class Order(models.Model):
             queryset = Order.objects.all()
         return datetime_filter(query_params, queryset)
 
+    @staticmethod
+    def filter_by_status(query_params, queryset=None):
+        if queryset is None:
+            queryset = Order.objects.all()
+        status = query_params.get('status', '')
+        if status != '':
+            queryset = queryset.filter(~Q(status=status))
+        return queryset
+
     @classmethod
     def get_query_orders(cls, query_params):
         queryset = Order.filter_by_customer_name(query_params)
         queryset = Order.filter_by_time(query_params, queryset)
+        queryset = Order.filter_by_status(query_params, queryset)
+
         sort = bool(query_params.get('asc', False))
         if sort:
             return queryset.order_by('created_at')
