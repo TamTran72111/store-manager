@@ -19,11 +19,15 @@
           />
         </td>
         <td>
-          <RequiredInput
+          <Currency
+            v-model="price"
+            :placeholder="t('units.pricePlaceholder')"
+          />
+          <!-- <RequiredInput
             type="number"
             :placeholder="t('units.pricePlaceholder')"
             v-model="price"
-          />
+          /> -->
         </td>
         <td colspan="2" class="has-text-centered">
           <button
@@ -44,10 +48,11 @@ import { ref } from "vue";
 import { useStore } from "vuex";
 
 import RequiredInput from "../ui/RequiredInput.vue";
+import Currency from "../ui/Currency.vue";
 import Unit from "./Unit.vue";
 
 export default {
-  components: { RequiredInput, Unit },
+  components: { RequiredInput, Unit, Currency },
   props: ["productId", "units"],
   inject: ["t"],
   setup(props) {

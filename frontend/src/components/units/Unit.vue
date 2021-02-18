@@ -10,9 +10,8 @@
       <span v-else :class="{ deleted: !unit.active }">{{ unit.name }}</span>
     </td>
     <td class="has-text-right">
-      <RequiredInput
+      <Currency
         v-if="isEditing"
-        type="number"
         v-model="price"
         :placeholder="t('units.pricePlaceholder')"
       />
@@ -62,9 +61,10 @@ import { ref } from "vue";
 import { useStore } from "vuex";
 
 import RequiredInput from "../ui/RequiredInput.vue";
+import Currency from "../ui/Currency.vue";
 
 export default {
-  components: { RequiredInput },
+  components: { RequiredInput, Currency },
   props: ["unit"],
   inject: ["t", "n"],
   setup(props) {

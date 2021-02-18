@@ -6,8 +6,7 @@
           <tr>
             <th>{{ t("orders.payment.payment") }}</th>
             <td>
-              <RequiredInput
-                type="number"
+              <Currency
                 :placeholder="t('orders.paymentPlaceholder')"
                 v-model="payment"
               />
@@ -41,12 +40,12 @@ import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 
 import BaseModal from "../ui/BaseModal.vue";
-import RequiredInput from "../ui/RequiredInput.vue";
+import Currency from "../ui/Currency.vue";
 
 export default {
   emits: ["close"],
   inject: ["t"],
-  components: { BaseModal, RequiredInput },
+  components: { BaseModal, Currency },
   setup(_, context) {
     const store = useStore();
     const payment = ref(0);

@@ -13,14 +13,12 @@ const numberFormats = {
     currency: {
       style: 'currency',
       currency: 'USD',
-      currencyDisplay: 'symbol',
     },
   },
   vi: {
     currency: {
       style: 'currency',
       currency: 'VND',
-      currencyDisplay: 'symbol',
     },
   },
 };

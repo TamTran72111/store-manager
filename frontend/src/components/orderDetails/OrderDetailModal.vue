@@ -43,8 +43,7 @@
           <tr>
             <th>{{ t("products.table.price") }}</th>
             <td>
-              <UnrequiredInput
-                type="number"
+              <Currency
                 v-model="price"
                 :placeholder="t('units.pricePlaceholder')"
               />
@@ -64,8 +63,8 @@
 
           <tr>
             <th>{{ t("orders.details.cost") }}</th>
-            <td>
-              <UnrequiredInput type="number" v-model="cost" readonly />
+            <td class="has-text-right pr-5">
+              {{ cost }}
             </td>
           </tr>
 
@@ -99,17 +98,25 @@
 </template>
 
 <script>
-import { computed, ref, watch } from "vue";
+import { computed, inject, ref, watch } from "vue";
+import { useStore } from "vuex";
+
 import RequiredInput from "../ui/RequiredInput.vue";
 import UnrequiredInput from "../ui/UnrequiredInput.vue";
 import Suggestion from "../ui/Suggestion.vue";
-import { useStore } from "vuex";
 import BaseModal from "../ui/BaseModal.vue";
+import Currency from "../ui/Currency.vue";
 
 export default {
   props: ["title", "detail"],
   emits: ["save", "close"],
-  components: { RequiredInput, UnrequiredInput, Suggestion, BaseModal },
+  components: {
+    RequiredInput,
+    UnrequiredInput,
+    Suggestion,
+    BaseModal,
+    Currency,
+  },
   inject: ["t"],
   setup(props, context) {
     const store = useStore();
@@ -118,6 +125,7 @@ export default {
     const quantity = ref(props.detail?.quantity);
     const price = ref(props.detail?.price || 0);
     const ready = ref(props.detail?.ready || false);
+    const n = inject("n");
 
     const units = computed(() => {
       if (product.value) {
@@ -158,9 +166,9 @@ export default {
 
     const cost = computed(() => {
       if (price.value && quantity.value > 0) {
-        return price.value * quantity.value;
+        return n(price.value * quantity.value, "currency");
       }
-      return 0;
+      return n(0, "currency");
     });
 
     const isInvalid = computed(() => {
