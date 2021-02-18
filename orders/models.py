@@ -1,10 +1,11 @@
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-import datetime
 
 from customers.models import Customer
 from products.models import Unit
+from utils.mixins import _generate_search_name
+from utils.filters import datetime_filter
 
 
 class Order(models.Model):
@@ -45,13 +46,33 @@ class Order(models.Model):
     def update_debt(self):
         self.debt = self.customer.debt
 
+    @staticmethod
+    def filter_by_customer_name(query_params, queryset=None):
+        if queryset is None:
+            queryset = Order.objects.all()
+        customer_name = query_params.get('customer', '')
+        if customer_name != '':
+            customer_name = _generate_search_name(customer_name)
+            return queryset.filter(
+                customer__search_name__contains=customer_name
+            )
+        return queryset
+
+    @staticmethod
+    def filter_by_time(query_params, queryset=None):
+        if queryset is None:
+            queryset = Order.objects.all()
+        return datetime_filter(query_params, queryset)
+
     @classmethod
-    def get_query_orders(cls, query):
-        time_query = query.get('time')
-        if time_query == 'today':
-            today = datetime.datetime.today() - datetime.timedelta(hours=4)
-            return Order.objects.filter(created_at__gte=today)
-        return Order.objects.order_by('-created_at')
+    def get_query_orders(cls, query_params):
+        queryset = Order.filter_by_customer_name(query_params)
+        queryset = Order.filter_by_time(query_params, queryset)
+        sort = bool(query_params.get('asc', False))
+        if sort:
+            return queryset.order_by('created_at')
+        else:
+            return queryset.order_by('-created_at')
 
 
 @receiver(pre_save, sender=Order, dispatch_uid='Order_pre_save')
