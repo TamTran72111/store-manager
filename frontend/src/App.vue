@@ -18,15 +18,16 @@ export default {
   provide() {
     return {
       t: this.t,
+      n: this.n,
     };
   },
   setup() {
-    const { t } = useI18n();
+    const { t, n } = useI18n();
     const store = useStore();
     onBeforeMount(() => {
       store.dispatch("setLanguage");
     });
-    return { t };
+    return { t, n };
   },
 };
 </script>

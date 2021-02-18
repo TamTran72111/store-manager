@@ -6,11 +6,13 @@
       }}</router-link>
     </td>
     <td>{{ firstUnit?.name || "" }}</td>
-    <td class="has-text-right">{{ firstUnit?.price || "" }}</td>
+    <td class="has-text-right">
+      {{ firstUnit ? n(parseFloat(firstUnit.price), "currency") : "" }}
+    </td>
   </tr>
   <tr v-for="unit in otherUnits" :key="unit.id">
     <td>{{ unit.name }}</td>
-    <td class="has-text-right">{{ unit.price }}</td>
+    <td class="has-text-right">{{ n(parseFloat(unit.price), "currency") }}</td>
   </tr>
 </template>
 
@@ -18,12 +20,13 @@
 import { computed } from "vue";
 export default {
   props: ["product"],
+  inject: ["n"],
   setup(props) {
     const firstUnit = computed(() => {
       if (props.product.active) {
         return props.product.units[0];
       } else {
-        return {};
+        return undefined;
       }
     });
     const otherUnits = computed(() => {

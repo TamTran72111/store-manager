@@ -12,13 +12,16 @@
     <td class="ellipsis">
       <span>{{ customer.address }}</span>
     </td>
-    <td class="has-text-right">{{ parseFloat(customer.debt).toFixed(2) }}</td>
+    <td class="has-text-right">
+      {{ n(parseFloat(customer.debt), "currency") }}
+    </td>
   </tr>
 </template>
 
 <script>
 export default {
   props: ["customer"],
+  inject: ["n"],
 };
 </script>
 

@@ -13,9 +13,12 @@
       <span>{{ detail.unit_name }}</span>
     </td>
 
-    <td class="has-text-right hide-on-small">{{ detail.price }}</td>
+    <td class="has-text-right hide-on-small">
+      {{ n(parseFloat(detail.price || 0), "currency") }}
+    </td>
     <td class="has-text-right">{{ detail.quantity }}</td>
-    <td class="has-text-right">{{ detail.cost }}</td>
+    <td class="has-text-right">{{ n(detail.cost, "currency") }}</td>
+    <!-- <td class="has-text-right">{{ detail.cost }}</td> -->
     <td class="has-text-centered has-text-info">
       <span :title="t('edit')" @click="toggleEdit" class="icon"
         ><i class="fas fa-pen"></i
@@ -40,7 +43,7 @@ import OrderDetailModal from "./OrderDetailModal.vue";
 export default {
   components: { OrderDetailModal },
   props: ["detail"],
-  inject: ["t"],
+  inject: ["t", "n"],
   setup(props) {
     const showEdit = ref(false);
     const store = useStore();

@@ -16,7 +16,9 @@
         v-model="price"
         :placeholder="t('units.pricePlaceholder')"
       />
-      <span v-else :class="{ deleted: !unit.active }">{{ unit.price }}</span>
+      <span v-else :class="{ deleted: !unit.active }">{{
+        n(parseFloat(unit.price), "currency")
+      }}</span>
     </td>
     <td v-if="isEditing" class="v-align">
       <span class="icon has-text-info" @click="save" :title="t('save')"
@@ -64,7 +66,7 @@ import RequiredInput from "../ui/RequiredInput.vue";
 export default {
   components: { RequiredInput },
   props: ["unit"],
-  inject: ["t"],
+  inject: ["t", "n"],
   setup(props) {
     const isEditing = ref(false);
     const name = ref(props.unit.name);

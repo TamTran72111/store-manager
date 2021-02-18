@@ -54,7 +54,7 @@
       <tr v-if="!isEditing">
         <th>{{ t("customers.table.debt") }}</th>
         <td class="has-text-centered">
-          <strong>{{ parseFloat(customer?.debt).toFixed(2) }}</strong>
+          <strong>{{ n(parseFloat(customer?.debt || 0), "currency") }}</strong>
         </td>
       </tr>
     </tbody>
@@ -86,7 +86,7 @@ import UnrequiredInput from "../../components/ui/UnrequiredInput.vue";
 
 export default {
   components: { Units, RequiredInput, UnrequiredInput },
-  inject: ["t"],
+  inject: ["t", "n"],
   setup() {
     const route = useRoute();
     const store = useStore();

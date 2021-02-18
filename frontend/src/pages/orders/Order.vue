@@ -27,32 +27,32 @@
       <tr>
         <th>{{ t("customers.table.debt") }}</th>
         <td class="has-text-centered">
-          <strong>{{ parseFloat(order?.debt).toFixed(2) }}</strong>
+          <strong>{{ n(parseFloat(order?.debt || 0), "currency") }}</strong>
         </td>
       </tr>
       <tr>
         <th>{{ t("orders.table.subtotal") }}</th>
         <td class="has-text-centered">
-          <strong>{{ subtotal.toFixed(2) }}</strong>
+          <strong>{{ n(subtotal, "currency") }}</strong>
         </td>
       </tr>
       <tr>
         <th>{{ t("orders.table.total") }}</th>
         <td class="has-text-centered">
-          <strong>{{ total.toFixed(2) }}</strong>
+          <strong>{{ n(total, "currency") }}</strong>
         </td>
       </tr>
       <tr>
         <th>{{ t("orders.table.payment") }}</th>
         <td class="has-text-centered">
-          <strong>{{ parseFloat(order?.payment).toFixed(2) }}</strong>
+          <strong>{{ n(parseFloat(order?.payment || 0), "currency") }}</strong>
         </td>
       </tr>
 
       <tr>
         <th>{{ t("orders.table.remain") }}</th>
         <td class="has-text-centered">
-          <strong>{{ remain.toFixed(2) }}</strong>
+          <strong>{{ n(remain, "currency") }}</strong>
         </td>
       </tr>
 
@@ -85,7 +85,7 @@ import PaymentModal from "../../components/orders/PaymentModal.vue";
 
 export default {
   components: { OrderDetails, RequiredInput, UnrequiredInput, PaymentModal },
-  inject: ["t"],
+  inject: ["t", "n"],
   setup() {
     const route = useRoute();
     const store = useStore();
