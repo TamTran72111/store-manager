@@ -2,12 +2,11 @@
   <div class="field">
     <div class="control">
       <input
+        ref="inputRef"
         class="input has-text-right"
         type="text"
         :placeholder="placeholder"
-        :value="value"
-        @blur="validateInput"
-        @focus="focus"
+        @input="handleInput"
         required
       />
     </div>
@@ -15,41 +14,47 @@
 </template>
 
 <script>
-import { computed, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 
 export default {
   props: ["placeholder", "modelValue"],
   emits: ["update:modelValue"],
   setup(props, context) {
-    const { n } = useI18n();
-    const isEditing = ref(false);
+    const { n, locale } = useI18n();
+    const inputRef = ref(null);
 
-    const validateInput = (e) => {
-      isEditing.value = false;
-      const value = parseFloat(e.target.value);
-      if (isNaN(value)) {
-        context.emit("update:modelValue", 0);
-      } else {
-        context.emit("update:modelValue", value);
-      }
-    };
-
-    const value = computed(() => {
-      if (isEditing.value) {
-        return parseFloat(props.modelValue);
-      }
-      return n(parseFloat(props.modelValue), "currency");
+    onMounted(() => {
+      inputRef.value.value = n(parseFloat(props.modelValue || 0), "currency");
     });
 
-    const focus = () => {
-      isEditing.value = true;
+    watch(props, () => {
+      const oldLength = inputRef.value.value.length;
+      const oldPosition = inputRef.value.selectionStart;
+      const newValue = n(parseFloat(props.modelValue), "currency");
+      const newPosition = oldPosition + newValue.length - oldLength;
+      inputRef.value.value = newValue;
+      inputRef.value.setSelectionRange(newPosition, newPosition);
+    });
+
+    const handleInput = (e) => {
+      let value = e.target.value;
+
+      if (locale.value === "vi") {
+        // Convert the vietnamese format to english format
+        value = value.replace(/\./g, "");
+        value = value.replace(/,/g, ".");
+      }
+      // Clean up
+      value = value.replace(/,/g, "");
+      value = value.replace(/[^\d.]/g, "");
+
+      context.emit("update:modelValue", value);
     };
 
     return {
-      validateInput,
-      value,
-      focus,
+      handleInput,
+      inputRef,
     };
   },
 };
