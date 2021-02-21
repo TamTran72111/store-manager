@@ -4,7 +4,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "update-static-links": "python helper.py",
+    "copy-static-files": "cp -r dist/[^i]** ../staticfiles",
+    "copy-html-file": "cp dist/index.html templates/frontend",
+    "copy-files": "yarn copy-static-files && yarn copy-html-file",
+    "collectstatic": "yarn build && yarn update-static-links && yarn copy-files"
   },
   "dependencies": {
     "axios": "^0.21.1",
