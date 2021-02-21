@@ -2,8 +2,8 @@ import api from '../../api';
 import router from '../../router';
 
 export default {
-  async fetchCustomers({ commit }, searchName = '') {
-    const response = await api.customers.fetchAll(searchName);
+  async fetchCustomers({ commit }, params = {}) {
+    const response = await api.customers.fetchAll(params);
     commit('fetchCustomers', response.data);
   },
   async fetchCustomer({ commit }, id) {

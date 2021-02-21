@@ -5,10 +5,10 @@ class BaseAPI {
     this.BASE_ENDPOINT = baseEndpoint;
   }
 
-  fetchAll(searchName, extraQueries = '') {
-    return axios.get(
-      `${this.BASE_ENDPOINT}/?name=${searchName}${extraQueries}`
-    );
+  fetchAll(params = {}) {
+    return axios.get(`${this.BASE_ENDPOINT}/`, {
+      params,
+    });
   }
   fetchOneById(id) {
     return axios.get(`${this.BASE_ENDPOINT}/${id}/`);

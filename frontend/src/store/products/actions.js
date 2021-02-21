@@ -2,8 +2,8 @@ import api from '../../api';
 import router from '../../router';
 
 export default {
-  async fetchProducts({ commit }, searchName = '') {
-    const response = await api.products.fetchAll(searchName);
+  async fetchProducts({ commit }, params = {}) {
+    const response = await api.products.fetchAll(params);
     commit('fetchProducts', response.data);
   },
   async fetchProduct({ commit }, id) {

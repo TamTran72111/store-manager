@@ -8,6 +8,7 @@
       v-model="customer"
       :placeholder="t('customers.namePlaceholder')"
       :label="t('customers.table.customer')"
+      paramName="name"
     />
     <div class="has-text-centered mt-5 pt-3">
       <button

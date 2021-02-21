@@ -12,6 +12,7 @@
                 getter="products/products"
                 v-model="product"
                 :initial="product"
+                paramName="name"
               />
             </td>
           </tr>

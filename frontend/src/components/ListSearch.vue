@@ -30,6 +30,10 @@ export default {
       type: String,
       default: "",
     },
+    paramName: {
+      type: String,
+      default: "name",
+    },
   },
   setup(props) {
     const searchName = ref("");
@@ -38,7 +42,9 @@ export default {
 
     watch(searchName, () => {
       if (props.actionName !== "") {
-        store.dispatch(props.actionName, searchName.value);
+        store.dispatch(props.actionName, {
+          [props.paramName]: searchName.value,
+        });
       }
     });
 

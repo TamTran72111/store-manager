@@ -30,7 +30,15 @@ import { useStore } from "vuex";
 
 export default {
   components: { DebounceInput },
-  props: ["label", "placeholder", "modelValue", "getter", "action", "initial"],
+  props: [
+    "label",
+    "placeholder",
+    "modelValue",
+    "getter",
+    "action",
+    "initial",
+    "paramName",
+  ],
   emits: ["update:modelValue"],
   setup(props, context) {
     const invalid = ref(false);
@@ -39,7 +47,7 @@ export default {
     const value = ref("");
 
     watch(value, () => {
-      store.dispatch(props.action, value.value);
+      store.dispatch(props.action, { [props.paramName]: value.value });
     });
 
     onBeforeMount(() => {
