@@ -13,12 +13,22 @@
 </template>
 
 <script>
+import { onBeforeMount } from "vue";
+import { useStore } from "vuex";
+
 import OrderList from "../../components/orders/OrderList.vue";
 import OrderSearch from "../../components/orders/OrderSearch.vue";
 
 export default {
   components: { OrderList, OrderSearch },
   inject: ["t"],
+  setup() {
+    const store = useStore();
+
+    onBeforeMount(() => {
+      store.dispatch("orders/fetchOrders");
+    });
+  },
 };
 </script>
 

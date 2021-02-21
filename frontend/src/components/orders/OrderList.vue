@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { computed, onBeforeMount } from "vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
 
 import OrderRow from "./OrderRow.vue";
@@ -27,10 +27,6 @@ export default {
   inject: ["t"],
   setup() {
     const store = useStore();
-
-    onBeforeMount(() => {
-      store.dispatch("orders/fetchOrders");
-    });
 
     const orders = computed(() => {
       return store.getters["orders/orders"];

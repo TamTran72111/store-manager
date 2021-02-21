@@ -2,6 +2,7 @@
   <ListSearch
     placeholder="orders.searchPlaceholder"
     actionName="orders/fetchOrders"
+    paramName="customer"
   />
 </template>
 

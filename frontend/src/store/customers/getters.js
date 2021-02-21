@@ -5,6 +5,9 @@ export default {
   customer(state) {
     return state.customer;
   },
+  customerName(state) {
+    return state.customer?.name ?? '';
+  },
   customerId(state) {
     return state.customer?.id;
   },

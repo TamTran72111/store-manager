@@ -69,10 +69,15 @@
     </button>
   </div>
   <div v-else class="has-text-centered button-group">
-    <button @click="isEditing = true" class="button is-info">
+    <button @click="isEditing = true" class="button is-info mx-5">
       {{ t("edit") }}
     </button>
+    <button @click="addOrder" class="button is-primary mx-5">
+      {{ t("orders.addButton") }}
+    </button>
   </div>
+
+  <OrderList />
 </template>
 
 <script>
@@ -83,9 +88,10 @@ import { computed, onBeforeMount, ref, watch } from "vue";
 import Units from "../../components/units/Units.vue";
 import RequiredInput from "../../components/ui/RequiredInput.vue";
 import UnrequiredInput from "../../components/ui/UnrequiredInput.vue";
+import OrderList from "../../components/orders/OrderList.vue";
 
 export default {
-  components: { Units, RequiredInput, UnrequiredInput },
+  components: { Units, RequiredInput, UnrequiredInput, OrderList },
   inject: ["t", "n"],
   setup() {
     const route = useRoute();
@@ -96,8 +102,11 @@ export default {
     const address = ref("");
     const description = ref("");
 
-    onBeforeMount(() => {
-      store.dispatch("customers/fetchCustomer", route.params.id);
+    onBeforeMount(async () => {
+      await store.dispatch("customers/fetchCustomer", route.params.id);
+      await store.dispatch("orders/fetchOrders", {
+        customer: store.getters["customers/customerName"],
+      });
     });
 
     const customer = computed(() => {
@@ -121,6 +130,12 @@ export default {
       isEditing.value = false;
     };
 
+    const addOrder = () => {
+      store.dispatch("orders/addOrder", {
+        customer: store.getters["customers/customerId"],
+      });
+    };
+
     return {
       customer,
       isEditing,
@@ -129,6 +144,7 @@ export default {
       address,
       description,
       save,
+      addOrder,
     };
   },
 };
@@ -147,6 +163,6 @@ div.button-group {
   margin-bottom: 2rem;
 }
 div.button-group button {
-  width: 100px;
+  width: 140px;
 }
 </style>
