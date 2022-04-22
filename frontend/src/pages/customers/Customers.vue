@@ -3,7 +3,7 @@
     <div class="has-text-right">
       <router-link
         :to="{ name: 'customer-add' }"
-        class="button is-primary is-outlined"
+        class="button is-info is-outlined"
         >{{ t("customers.addButton") }}</router-link
       >
     </div>
@@ -18,7 +18,10 @@ import CustomerSearch from "../../components/customers/CustomerSearch.vue";
 
 export default {
   components: { CustomerList, CustomerSearch },
-  inject: ["t"],
+  inject: ["t", "websiteTitle"],
+  created() {
+    document.title = "Khách Hàng - " + this.websiteTitle;
+  },
 };
 </script>
 

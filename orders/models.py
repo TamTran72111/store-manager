@@ -1,10 +1,11 @@
 from django.db import models
 from django.db.models import Q
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 
 from customers.models import Customer
 from products.models import Unit
+from staff.models import Staff
 from utils.mixins import _generate_search_name
 from utils.filters import datetime_filter
 
@@ -31,7 +32,7 @@ class Order(models.Model):
         default='o'
     )
     debt = models.DecimalField(default=0, max_digits=15, decimal_places=2)
-    payment = models.DecimalField(default=0, max_digits=15, decimal_places=2)
+    # payment = models.DecimalField(default=0, max_digits=15, decimal_places=2)
 
     def __str__(self):
         return f'{self.customer.name} - ' +\
@@ -39,7 +40,11 @@ class Order(models.Model):
 
     @property
     def subtotal(self):
-        return sum([detail.cost for detail in self.details.all()])
+        return sum(detail.cost for detail in self.details.all())
+
+    @property
+    def payment(self):
+        return sum(payment.amount for payment in self.payments.all())
 
     def is_shipped(self):
         return self.status == 's'
@@ -86,6 +91,16 @@ class Order(models.Model):
         else:
             return queryset.order_by('-created_at')
 
+    def update_status(self):
+        detail_ready = [detail.ready for detail in self.details.all()]
+        if all(detail_ready):
+            self.status = 'r'
+        elif any(detail_ready):
+            self.status = 'p'
+        else:
+            self.status = 'o'
+        self.save()
+
 
 @receiver(pre_save, sender=Order, dispatch_uid='Order_pre_save')
 def get_debt(sender, instance, *args, **kwargs):
@@ -131,10 +146,41 @@ class OrderDetail(models.Model):
         return self.order.is_shipped()
 
 
-@receiver(pre_save, sender=OrderDetail, dispatch_uid='OrderDetail_post_save')
+@receiver(pre_save, sender=OrderDetail, dispatch_uid='OrderDetail_pre_save')
 def update_customer_debt(sender, instance, *args, **kwargs):
     if instance.id is None:
         old_cost = 0
     else:
         old_cost = OrderDetail.objects.get(id=instance.id).cost
     instance.order.customer.update_order_detail(instance.cost, old_cost)
+
+
+@receiver(post_save, sender=OrderDetail, dispatch_uid='OrderDetail_post_save')
+def update_order_status(sender, instance, *args, **kwargs):
+    instance.order.update_status()
+
+
+class Payment(models.Model):
+    order = models.ForeignKey(
+        Order,
+        related_name='payments',
+        related_query_name='payment',
+        on_delete=models.CASCADE
+    )
+    staff = models.ForeignKey(
+        Staff,
+        related_name='payments',
+        related_query_name='payment',
+        on_delete=models.CASCADE
+    )
+    amount = models.DecimalField(default=0, max_digits=15, decimal_places=2)
+    created_at = models.DateField(auto_now_add=True)
+
+
+@receiver(pre_save, sender=Payment, dispatch_uid='Payment_pre_save')
+def payment_pre_save(sender, instance, *args, **kwargs):
+    instance.order.customer.pay(instance.amount)
+    orders = instance.order.customer.orders.filter(id__gt=instance.order.id)
+    for order in orders:
+        order.debt -= instance.amount
+    Order.objects.bulk_update(orders, ['debt'], batch_size=32)

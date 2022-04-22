@@ -19,6 +19,7 @@ export default {
     return {
       t: this.t,
       n: this.n,
+      websiteTitle: 'Tạp Hóa Cô Mai',
     };
   },
   setup() {

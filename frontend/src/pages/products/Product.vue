@@ -11,7 +11,9 @@
             v-model="name"
             :placeholder="t('products.namePlaceholder')"
           />
-          <strong v-else :class="deleted">{{ product?.name }}</strong>
+          <strong v-else class="is-capitalized" :class="deleted">{{
+            product?.name
+          }}</strong>
         </td>
       </tr>
       <tr>
@@ -30,7 +32,7 @@
     </tbody>
   </table>
   <div v-if="!product?.active" class="has-text-centered button-group">
-    <button @click="activate" class="button is-primary">
+    <button @click="activate" class="button is-info">
       {{ t("recover") }}
     </button>
   </div>
@@ -61,10 +63,11 @@
 <script>
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
-import { computed, onBeforeMount, ref, watch } from "vue";
+import { computed, onBeforeMount, ref, watch, inject } from "vue";
 
 import Units from "../../components/units/Units.vue";
 import RequiredInput from "../../components/ui/RequiredInput.vue";
+import { capitalize } from "../../utils";
 
 export default {
   components: { Units, RequiredInput },
@@ -75,9 +78,12 @@ export default {
     const isEditing = ref(false);
     const name = ref("");
     const description = ref("");
+    const websiteTitle = inject("websiteTitle");
 
-    onBeforeMount(() => {
-      store.dispatch("products/fetchProduct", route.params.id);
+    onBeforeMount(async () => {
+      await store.dispatch("products/fetchProduct", route.params.id);
+      const capitalizedName = capitalize(name.value);
+      document.title = `${capitalizedName} - ${websiteTitle}`;
     });
 
     const product = computed(() => {
@@ -92,7 +98,7 @@ export default {
     const save = async () => {
       if (name.value) {
         await store.dispatch("products/editProduct", {
-          name: name.value,
+          name: name.value.trim().toLowerCase(),
           description: description.value,
         });
         isEditing.value = false;

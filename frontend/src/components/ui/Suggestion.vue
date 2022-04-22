@@ -11,7 +11,7 @@
     <div v-if="isFocusing" class="suggestions">
       <div>
         <strong
-          class="suggestion"
+          class="suggestion is-capitalized"
           v-for="suggestion in suggestions"
           :key="suggestion.id"
           @click.stop="click(suggestion.id, suggestion.name)"

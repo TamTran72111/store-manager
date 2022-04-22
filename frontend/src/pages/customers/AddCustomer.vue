@@ -5,8 +5,11 @@
       :label="t('customers.table.customer')"
       :placeholder="t('customers.namePlaceholder')"
       v-model="name"
+      isName
       type="text"
+      @keydown="errorMessage = ''"
     />
+    <ErrorMessage :errorMessage="errorMessage" />
     <UnrequiredInput
       type="text"
       :label="t('customers.table.phone')"
@@ -31,11 +34,17 @@
       </div>
     </div>
 
+    <Currency
+      v-model="debt"
+      :label="t('customers.table.debt')"
+      :placeholder="t('customers.table.debt')"
+    />
+
     <div class="field is-grouped is-grouped-centered">
       <div class="control">
         <button
           type="submit"
-          class="button is-primary"
+          class="button is-info"
           style="width: 100px"
           :disabled="!name"
         >
@@ -61,27 +70,46 @@ import { useStore } from "vuex";
 
 import RequiredInput from "../../components/ui/RequiredInput.vue";
 import UnrequiredInput from "../../components/ui/UnrequiredInput.vue";
+import Currency from "../../components/ui/Currency.vue";
+import ErrorMessage from "../../components/ui/ErrorMessage.vue";
 
 export default {
-  components: { RequiredInput, UnrequiredInput },
+  components: { RequiredInput, UnrequiredInput, Currency, ErrorMessage },
   inject: ["t"],
   setup() {
     const name = ref("");
     const phone = ref("");
     const address = ref("");
     const description = ref("");
+    const debt = ref(0);
     const store = useStore();
+    const errorMessage = ref("");
 
     const onSubmit = async () => {
-      await store.dispatch("customers/addCustomer", {
-        name: name.value,
-        phone: phone.value,
-        address: address.value,
-        description: description.value,
-      });
+      try {
+        await store.dispatch("customers/addCustomer", {
+          name: name.value.trim().toLowerCase(),
+          phone: phone.value,
+          address: address.value,
+          description: description.value,
+          debt: debt.value,
+        });
+      } catch (e) {
+        if (e.response.data.name) {
+          errorMessage.value = "Khách Hàng đã tồn tại";
+        }
+      }
     };
 
-    return { name, phone, address, description, onSubmit };
+    return {
+      name,
+      phone,
+      address,
+      description,
+      debt,
+      errorMessage,
+      onSubmit,
+    };
   },
 };
 </script>

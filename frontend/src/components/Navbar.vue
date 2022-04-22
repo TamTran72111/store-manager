@@ -31,9 +31,9 @@
         <router-link :to="{ name: 'orders' }" class="navbar-item">{{
           t("navbar.orders")
         }}</router-link>
-        <router-link :to="{ name: 'settings' }" class="navbar-item">{{
-          t("navbar.settings")
-        }}</router-link>
+        <router-link :to="{ name: 'staff' }" class="navbar-item">
+          Nhân Viên
+        </router-link>
       </div>
     </div>
   </nav>

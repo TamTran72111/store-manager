@@ -1,5 +1,6 @@
 <template>
   <div class="field">
+    <label v-if="label" class="label">{{ label }}</label>
     <div class="control">
       <input
         ref="inputRef"
@@ -18,7 +19,7 @@ import { onMounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 
 export default {
-  props: ["placeholder", "modelValue"],
+  props: ["placeholder", "modelValue", "label"],
   emits: ["update:modelValue"],
   setup(props, context) {
     const { n, locale } = useI18n();

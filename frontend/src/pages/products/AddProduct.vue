@@ -6,7 +6,9 @@
       :placeholder="t('products.namePlaceholder')"
       v-model="name"
       type="text"
+      @keydown="errorMessage = ''"
     />
+    <ErrorMessage :errorMessage="errorMessage" />
     <div class="field">
       <label class="label">{{ t("products.description") }}</label>
       <div class="control">
@@ -22,7 +24,7 @@
       <div class="control">
         <button
           type="submit"
-          class="button is-primary"
+          class="button is-info"
           style="width: 100px"
           :disabled="!name"
         >
@@ -55,15 +57,22 @@ export default {
     const name = ref("");
     const description = ref("");
     const store = useStore();
+    const errorMessage = ref("");
 
     const onSubmit = async () => {
-      await store.dispatch("products/addProduct", {
-        name: name.value,
-        description: description.value,
-      });
+      try {
+        await store.dispatch("products/addProduct", {
+          name: name.value.trim().toLowerCase(),
+          description: description.value,
+        });
+      } catch (e) {
+        if (e.response.data.name) {
+          errorMessage.value = "Khách Hàng đã tồn tại";
+        }
+      }
     };
 
-    return { name, description, onSubmit };
+    return { name, description, errorMessage, onSubmit };
   },
 };
 </script>

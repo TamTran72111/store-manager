@@ -4,23 +4,18 @@
     <tbody>
       <tr>
         <th>{{ t("customers.table.customer") }}</th>
-        <td class="has-text-centered">
+        <td class="has-text-centered is-capitalized control has-icons-right">
           <router-link
             :to="{ name: 'customer-detail', params: { id: customer?.id } }"
             >{{ customer?.name }}</router-link
           >
-        </td>
-      </tr>
-      <tr>
-        <th>{{ t("customers.table.phone") }}</th>
-        <td class="has-text-centered">
-          <strong>{{ customer?.phone }}</strong>
-        </td>
-      </tr>
-      <tr>
-        <th>{{ t("customers.table.address") }}</th>
-        <td>
-          <span>{{ customer?.address }}</span>
+          <span
+            v-if="hasInfo"
+            @click="toggleInfo"
+            class="icon is-small is-right has-text-info clickable-icon"
+          >
+            <i class="fas fa-info-circle"></i>
+          </span>
         </td>
       </tr>
 
@@ -44,8 +39,15 @@
       </tr>
       <tr>
         <th>{{ t("orders.table.payment") }}</th>
-        <td class="has-text-centered">
+        <td class="has-text-centered control has-icons-right">
           <strong>{{ n(parseFloat(order?.payment || 0), "currency") }}</strong>
+          <span
+            v-if="hasPaymentInfo"
+            @click="togglePaymentInfo"
+            class="icon is-small is-right has-text-info clickable-icon"
+          >
+            <i class="fas fa-info-circle"></i>
+          </span>
         </td>
       </tr>
 
@@ -65,35 +67,51 @@
     </tbody>
   </table>
   <div class="has-text-centered mb-5 pb-4">
-    <button @click="togglePayment" class="button is-primary is-outlined">
+    <button @click="togglePayment" class="button is-info is-outlined">
       {{ t("orders.pay") }}
     </button>
   </div>
   <OrderDetails v-if="order" :orderId="order.id" :details="order.details" />
-  <PaymentModal v-if="showPayment" @close="togglePayment" />
+  <PaymentModal v-if="showPayment" :orderId="order.id" @close="togglePayment" />
+  <CustomerInfoModal
+    v-if="showInfo"
+    @close="toggleInfo"
+    :phone="customer?.phone"
+    :address="customer?.address"
+  />
+  <PaymentInfoModal v-if="showPaymentInfo" @close="togglePaymentInfo" />
 </template>
 
 <script>
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
-import { computed, onBeforeMount, ref } from "vue";
+import { computed, inject, onBeforeMount, ref, watch } from "vue";
 
 import OrderDetails from "../../components/orderDetails/OrderDetails.vue";
 import RequiredInput from "../../components/ui/RequiredInput.vue";
 import UnrequiredInput from "../../components/ui/UnrequiredInput.vue";
 import PaymentModal from "../../components/orders/PaymentModal.vue";
+import CustomerInfoModal from "../../components/orders/CustomerInfoModal.vue";
+import PaymentInfoModal from "../../components/orders/PaymentInfoModal.vue";
+import { capitalize } from "../../utils";
 
 export default {
-  components: { OrderDetails, RequiredInput, UnrequiredInput, PaymentModal },
+  components: {
+    OrderDetails,
+    RequiredInput,
+    UnrequiredInput,
+    PaymentModal,
+    CustomerInfoModal,
+    PaymentInfoModal,
+  },
   inject: ["t", "n"],
   setup() {
     const route = useRoute();
     const store = useStore();
     const showPayment = ref(false);
-
-    onBeforeMount(() => {
-      store.dispatch("orders/fetchOrder", route.params.id);
-    });
+    const showInfo = ref(false);
+    const showPaymentInfo = ref(false);
+    const websiteTitle = inject("websiteTitle");
 
     const order = computed(() => {
       return store.getters["orders/order"];
@@ -115,6 +133,15 @@ export default {
       }
     });
 
+    onBeforeMount(() => {
+      store.dispatch("orders/fetchOrder", route.params.id);
+      store.dispatch("orders/fetchPayments", route.params.id);
+    });
+    watch(customer, () => {
+      const capitalizedName = capitalize(customer.value.name);
+      document.title = `${capitalizedName} - ${websiteTitle}`;
+    });
+
     const remain = computed(() => {
       if (order.value) {
         return total.value - parseFloat(order.value.payment);
@@ -126,6 +153,22 @@ export default {
       showPayment.value = !showPayment.value;
     };
 
+    const toggleInfo = () => {
+      showInfo.value = !showInfo.value;
+    };
+
+    const togglePaymentInfo = () => {
+      showPaymentInfo.value = !showPaymentInfo.value;
+    };
+
+    const hasInfo = computed(() => {
+      return !!customer.value?.address || !!customer.value?.phone;
+    });
+
+    const hasPaymentInfo = computed(() => {
+      return store.getters["orders/hasPayment"];
+    });
+
     return {
       order,
       customer,
@@ -133,7 +176,13 @@ export default {
       total,
       remain,
       showPayment,
+      showInfo,
+      showPaymentInfo,
       togglePayment,
+      toggleInfo,
+      togglePaymentInfo,
+      hasInfo,
+      hasPaymentInfo,
     };
   },
 };
@@ -156,5 +205,9 @@ div.button-group button {
 }
 table.table {
   margin-bottom: 1rem;
+}
+.clickable-icon {
+  pointer-events: auto !important;
+  cursor: pointer;
 }
 </style>

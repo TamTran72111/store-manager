@@ -19,39 +19,34 @@
         n(parseFloat(unit.price), "currency")
       }}</span>
     </td>
-    <td v-if="isEditing" class="v-align">
-      <span class="icon has-text-info" @click="save" :title="t('save')"
-        ><i class="fas fa-save"></i
-      ></span>
+    <td v-if="isEditing" class="v-align has-text-centered">
+      <button class="button is-small is-info has-text-weight-medium" @click="save" :title="t('save')"
+        >Lưu</button>
     </td>
-    <td v-else-if="unit.active">
-      <span
-        class="icon has-text-info"
+    <td v-else-if="unit.active" class="has-text-centered">
+      <button
+        class="button is-small is-info has-text-weight-medium"
         @click="isEditing = true"
         :title="t('edit')"
-        ><i class="fas fa-pen"></i
-      ></span>
+        >Sửa</button>
     </td>
     <td v-else colspan="2" class="has-text-centered">
       <span
         @click="activate"
-        class="icon has-text-primary"
+        class="button is-small is-primary has-text-black has-text-weight-medium"
         :title="t('recover')"
-        ><i class="fas fa-history"></i
-      ></span>
+        >Phục hồi</span>
     </td>
     <td v-if="isEditing" class="v-align">
-      <span @click="isEditing = false" class="icon" :title="t('cancel')"
-        ><i class="fas fa-history"></i
-      ></span>
+      <button @click="isEditing = false" class="button is-small is-dark has-text-weight-medium" :title="t('cancel')"
+        >Hủy</button>
     </td>
     <td v-else-if="unit.active">
-      <span
+      <button
         @click="deactivate"
-        class="icon has-text-danger"
+        class="button is-small is-danger has-text-weight-medium"
         :title="t('delete')"
-        ><i class="fas fa-trash-alt"></i
-      ></span>
+        >Xóa</button>
     </td>
   </tr>
 </template>

@@ -3,7 +3,7 @@
     <td>
       <router-link
         :to="{ name: 'customer-detail', params: { id: customer.id } }"
-        ><span>{{ customer.name }}</span></router-link
+        ><span class="is-capitalized">{{ customer.name }}</span></router-link
       >
     </td>
     <td class="has-text-center">

@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <td :rowspan="rowSpan" class="product-name">
+    <td :rowspan="rowSpan" class="product-name is-capitalized">
       <router-link :to="toLink" :class="{ deleted: !product.active }">{{
         product.name
       }}</router-link>

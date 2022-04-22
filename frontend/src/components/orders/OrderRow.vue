@@ -2,7 +2,7 @@
   <tr>
     <td>
       <router-link :to="{ name: 'order-detail', params: { id: order.id } }"
-        ><span>{{ order.customer_name }}</span></router-link
+        ><span class="is-capitalized">{{ order.customer_name }}</span></router-link
       >
     </td>
     <td class="has-text-centered">

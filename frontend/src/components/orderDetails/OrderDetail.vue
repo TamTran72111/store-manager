@@ -7,7 +7,7 @@
         :title="t('orders.details.ready')"
         ><i class="fas fa-check"></i
       ></span>
-      <span>{{ detail.product_name }}</span>
+      <span class="is-capitalized">{{ detail.product_name }}</span>
     </td>
     <td class="has-text-centered">
       <span>{{ detail.unit_name }}</span>
@@ -20,9 +20,13 @@
     <td class="has-text-right">{{ n(detail.cost, "currency") }}</td>
     <!-- <td class="has-text-right">{{ detail.cost }}</td> -->
     <td class="has-text-centered has-text-info">
-      <span :title="t('edit')" @click="toggleEdit" class="icon"
-        ><i class="fas fa-pen"></i
-      ></span>
+      <button
+        :title="t('edit')"
+        @click="toggleEdit"
+        class="button is-small is-info has-text-weight-medium"
+      >
+        Sửa
+      </button>
     </td>
   </tr>
   <OrderDetailModal

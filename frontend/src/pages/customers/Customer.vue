@@ -11,7 +11,7 @@
             v-model="name"
             :placeholder="t('customers.namePlaceholder')"
           />
-          <strong v-else>{{ customer?.name }}</strong>
+          <strong class="is-capitalized" v-else>{{ customer?.name }}</strong>
         </td>
       </tr>
       <tr>
@@ -72,7 +72,7 @@
     <button @click="isEditing = true" class="button is-info mx-5">
       {{ t("edit") }}
     </button>
-    <button @click="addOrder" class="button is-primary mx-5">
+    <button @click="addOrder" class="button is-info mx-5">
       {{ t("orders.addButton") }}
     </button>
   </div>
@@ -83,12 +83,13 @@
 <script>
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
-import { computed, onBeforeMount, ref, watch } from "vue";
+import { computed, inject, onBeforeMount, ref, watch } from "vue";
 
 import Units from "../../components/units/Units.vue";
 import RequiredInput from "../../components/ui/RequiredInput.vue";
 import UnrequiredInput from "../../components/ui/UnrequiredInput.vue";
 import OrderList from "../../components/orders/OrderList.vue";
+import { capitalize } from "../../utils";
 
 export default {
   components: { Units, RequiredInput, UnrequiredInput, OrderList },
@@ -101,12 +102,15 @@ export default {
     const phone = ref("");
     const address = ref("");
     const description = ref("");
+    const websiteTitle = inject("websiteTitle");
 
     onBeforeMount(async () => {
       await store.dispatch("customers/fetchCustomer", route.params.id);
       await store.dispatch("orders/fetchOrders", {
         customer: store.getters["customers/customerName"],
       });
+      const capitalizedName = capitalize(name.value);
+      document.title = `${capitalizedName} - ${websiteTitle}`;
     });
 
     const customer = computed(() => {
@@ -122,7 +126,7 @@ export default {
 
     const save = async () => {
       await store.dispatch("customers/editCustomer", {
-        name: name.value,
+        name: name.value.trim().toLowerCase(),
         phone: phone.value,
         address: address.value,
         description: description.value,

@@ -8,8 +8,28 @@
             <td>
               <Currency
                 :placeholder="t('orders.paymentPlaceholder')"
-                v-model="payment"
+                v-model="amount"
               />
+            </td>
+          </tr>
+          <tr>
+            <th>Người Nhận</th>
+            <td>
+              <div
+                class="select is-success"
+                :class="{ 'is-danger': staffId === 0 }"
+              >
+                <select v-model="staffId">
+                  <option :value="0">Chọn người nhận</option>
+                  <option
+                    v-for="staff_ in staff"
+                    :key="staff_.id"
+                    :value="staff_.id"
+                  >
+                    {{ staff_.name }}
+                  </option>
+                </select>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -45,33 +65,44 @@ import Currency from "../ui/Currency.vue";
 export default {
   emits: ["close"],
   inject: ["t"],
+  props: ["orderId"],
   components: { BaseModal, Currency },
-  setup(_, context) {
+  setup({ orderId }, context) {
     const store = useStore();
-    const payment = ref(0);
+    const amount = ref(0);
+    const staffId = ref(0);
 
     const close = () => {
       context.emit("close");
     };
 
-    onMounted(() => {
-      payment.value = store.getters["orders/payment"];
+    const staff = computed(() => {
+      return store.getters["staff/activeStaff"];
+    });
+
+    onMounted(async () => {
+      // payment.value = store.getters["orders/payment"];
+      await store.dispatch("staff/fetchStaff");
     });
 
     const save = async () => {
-      await store.dispatch("orders/editOrder", {
-        payment: payment.value,
+      await store.dispatch("orders/pay", {
+        amount: amount.value,
+        order: orderId,
+        staff: staffId.value,
       });
       close();
     };
     const isInvalid = computed(() => {
-      return !(payment.value >= 0);
+      return parseInt(amount.value) <= 0 || !staffId.value;
     });
 
     return {
       save,
       close,
-      payment,
+      amount,
+      staff,
+      staffId,
       isInvalid,
     };
   },

@@ -14,7 +14,7 @@
       <button
         :disabled="!customer"
         type="submit"
-        class="button is-primary is-outlined"
+        class="button is-info is-outlined"
       >
         {{ t("orders.addButton") }}
       </button>

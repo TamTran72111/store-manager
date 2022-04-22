@@ -5,7 +5,7 @@ from utils.mixins import SearchNameMixin
 
 
 class Product(models.Model, SearchNameMixin):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     search_name = models.CharField(max_length=200, blank=True)
     description = models.TextField(blank=True)
     # only set active to False instead of delete the instance.

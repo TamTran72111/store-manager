@@ -3,7 +3,7 @@
     <div class="has-text-right">
       <router-link
         :to="{ name: 'order-add' }"
-        class="button is-primary is-outlined"
+        class="button is-info is-outlined"
         >{{ t("orders.addButton") }}</router-link
       >
     </div>
@@ -21,7 +21,10 @@ import OrderSearch from "../../components/orders/OrderSearch.vue";
 
 export default {
   components: { OrderList, OrderSearch },
-  inject: ["t"],
+  inject: ["t", "websiteTitle"],
+  created() {
+    document.title = "Đơn Hàng - " + this.websiteTitle;
+  },
   setup() {
     const store = useStore();
 

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Order, OrderDetail
+from .models import Order, OrderDetail, Payment
 
 
 class OrderDetailBaseSerializer(serializers.ModelSerializer):
@@ -73,3 +73,14 @@ class OrderRetrieveSerializer(OrderSerializer):
         model = Order
         fields = ('id', 'customer', 'customer_name', 'status',
                   'created_at', 'subtotal', 'debt', 'payment', 'details')
+
+
+class PaymentSerializer(serializers.ModelSerializer):
+    staff_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Payment
+        fields = ('id', 'order', 'staff', 'staff_name', 'amount', 'created_at')
+
+    def get_staff_name(self, instance):
+        return instance.staff.name

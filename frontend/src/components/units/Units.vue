@@ -33,7 +33,7 @@
           <button
             :disabled="!name || !price"
             @click="click"
-            class="button is-primary"
+            class="button is-info"
           >
             {{ t("add") }}
           </button>
@@ -50,6 +50,7 @@ import { useStore } from "vuex";
 import RequiredInput from "../ui/RequiredInput.vue";
 import Currency from "../ui/Currency.vue";
 import Unit from "./Unit.vue";
+import { capitalize } from "../../utils";
 
 export default {
   components: { RequiredInput, Unit, Currency },
@@ -63,7 +64,7 @@ export default {
     const click = async () => {
       await store.dispatch("products/addUnit", {
         product: props.productId,
-        name: name.value,
+        name: capitalize(name.value),
         price: price.value,
       });
       name.value = "";

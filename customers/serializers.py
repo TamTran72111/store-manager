@@ -12,3 +12,8 @@ class CustomerSerialzier(serializers.ModelSerializer):
                 'read_only': True
             }
         }
+
+class CustomerCreateSerialzier(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = ('id', 'name', 'description', 'phone', 'address', 'debt')

@@ -15,7 +15,7 @@ export default {
     router.push(`/products/${response.data.id}`);
   },
   async editProduct({ commit, getters }, payload) {
-    await api.products.updateProductById(getters.productId, payload);
+    await api.products.updateById(getters.productId, payload);
     commit('editProduct', payload);
   },
   async activateProduct({ commit, getters }) {

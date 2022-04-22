@@ -5,7 +5,7 @@ from utils.mixins import SearchNameMixin
 
 
 class Customer(models.Model, SearchNameMixin):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     search_name = models.CharField(max_length=200, blank=True)
     description = models.TextField(blank=True)
     phone = models.CharField(max_length=20, blank=True)

@@ -43,7 +43,7 @@ export default {
       }
       timer = setTimeout(() => {
         context.emit("update:modelValue", value.value);
-      }, props.time || 400);
+      }, props.time || 600);
     });
 
     return {

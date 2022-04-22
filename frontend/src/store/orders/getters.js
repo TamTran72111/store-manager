@@ -22,4 +22,10 @@ export default {
   payment(state) {
     return state.order?.payment || 0;
   },
+  hasPayment(state) {
+    return state.payments.length > 0;
+  },
+  payments(state) {
+    return state.payments;
+  },
 };

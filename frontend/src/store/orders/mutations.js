@@ -22,5 +22,21 @@ export default {
         return detail_;
       }
     });
+    const isReady = state.order.details.every((detail) => detail.ready);
+    const isOrdered = state.order.details.every((detail) => !detail.ready);
+    if (isReady) {
+      state.order.status = "r";
+    } else if (isOrdered) {
+      state.order.status = "o";
+    } else {
+      state.order.status = "p";
+    }
+  },
+  pay(state, payment) {
+    state.payments.unshift(payment);
+    state.order.payment += parseFloat(payment.amount);
+  },
+  fetchPayments(state, payments) {
+    state.payments = payments;
   },
 };

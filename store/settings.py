@@ -25,7 +25,7 @@ SECRET_KEY = 'uv+nv-bo!5#)ra(%hq&_f*+5uturrkm-+1koe_us$g!@-v#!%s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'products',
     'customers',
     'orders',
+    'staff',
     'frontend',
 ]
 
@@ -137,4 +138,4 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 
-TIME_ZONE = 'America/Toronto'
+TIME_ZONE = 'Asia/Ho_Chi_Minh'

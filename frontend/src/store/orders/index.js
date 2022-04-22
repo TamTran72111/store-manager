@@ -1,6 +1,6 @@
-import getters from './getters';
-import mutations from './mutations';
-import actions from './actions';
+import getters from "./getters";
+import mutations from "./mutations";
+import actions from "./actions";
 
 export default {
   namespaced: true,
@@ -9,6 +9,7 @@ export default {
       orders: [],
       order: null,
       customer: null,
+      payments: [],
     };
   },
   getters,
